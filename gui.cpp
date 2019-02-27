@@ -1,7 +1,4 @@
-#include <iostream>
-#include <stdlib.h>
-#include <GLFW/glfw3.h>
-#include <vector>
+#include "algorithm.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 1000
@@ -13,16 +10,7 @@ void processInput(GLFWwindow *window);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
-//struct to represent a line segment
-struct lineSegment
-{
-    GLfloat startX;
-    GLfloat startY;
-    GLfloat endX = -1;
-    GLfloat endY = -1;
-};
-
-
+int runAlgorithmFlag = 0;
 vector<lineSegment> segmentVector;
 
 int main(void)
@@ -59,11 +47,6 @@ int main(void)
     // set callback for change in cursor position
     glfwSetCursorPosCallback(window, cursor_position_callback);
 
-    GLfloat line[] = {
-        100, 100, 0,
-        300, 300, 0
-    };
-
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -71,6 +54,7 @@ int main(void)
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
+        // draw all the line segments
         for(size_t i = 0; i < segmentVector.size(); i++)
         {
             if (segmentVector[i].endX != -1) {
@@ -80,12 +64,6 @@ int main(void)
                 glEnd();   
             }
         }
-        
-
-        glBegin(GL_LINES);
-        glVertex3f(100, 100, 0);
-        glVertex3f(300, 300, 0);
-        glEnd();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -107,7 +85,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         glfwGetCursorPos(window, &xpos, &ypos);
         // create line segment and add to vetor depending upon the clicks
         // handle start and end point differently 
-        cout<<xpos<<" "<<ypos<<endl;
         ypos = (SCREEN_HEIGHT-ypos);
         if (lineStartFlag == 0) {
             struct lineSegment newLine;
