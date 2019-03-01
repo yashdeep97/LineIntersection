@@ -349,7 +349,7 @@ int main()
 struct q *root = NULL;
 
 
-printf("Enter co-ordinates 1 to push 2 to pop 0 to exit\n");
+printf("Enter 1 to push 2 to pop 0 to exit\n");
 int control;
 scanf("%d",&control);
 int x,y,xs,ys,xe,ye,teller;
