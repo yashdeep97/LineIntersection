@@ -367,11 +367,13 @@ while(control!=0)
   {
     struct q* pop = maxValueNode(root);
     //pop is what is taken out
-    printf("popping event point %d,%d",pop->xc,pop->yc);
+    printf("popping event point %d,%d \n",pop->xc,pop->yc);
     deleteNode(root, pop->xc, pop-> yc);
   }
-
   preOrder(root);
+  printf("Enter co-ordinates 1 to push 2 to pop 0 to exit\n");
+  scanf("%d",&control);
+
 }
 
 
