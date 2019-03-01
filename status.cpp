@@ -132,6 +132,89 @@ struct status* insert(struct status* node, line newl, int ycor)
 
   	return node;
   }
+  struct status * minValueNode(struct status* node)
+  {
+      struct status* current = node;
+
+
+      while (current->left != NULL)
+          current = current->left;
+
+      return current;
+  }
+  struct status* deleteNode(struct status* root, line newl, int ycor)
+  {
+
+      if (root == NULL)
+          return root;
+
+      if ( findx(newl,ycor) < findx(root->l,ycor))
+          root->left = deleteNode(root->left, newl,ycor);
+
+
+      else if( findx(newl,ycor) > findx(root->l,ycor))
+          root->right = deleteNode(root->right, newl,ycor);
+
+      else
+      {
+          // node with only one child or no child
+          if( (root->left == NULL) || (root->right == NULL) )
+          {
+              struct status *temp = root->left ? root->left :
+                                               root->right;
+
+              if (temp == NULL)
+              {
+                  temp = root;
+                  root = NULL;
+              }
+              else
+               *root = *temp;
+              free(temp);
+          }
+          else
+          {
+
+              struct status* temp = minValueNode(root->right);
+
+              // Copy the inorder successor's data to this node
+              root->l = temp->l;
+              // Delete the inorder successor
+              root->right = deleteNode(root->right, temp->l, ycor);
+          }
+      }
+
+      if (root == NULL)
+        return root;
+
+
+      root->height = 1 + max(height(root->left),
+                             height(root->right));
+
+
+      int balance = getBalance(root);
+
+
+      if (balance > 1 && getBalance(root->left) >= 0)
+          return rightRotate(root);
+
+      if (balance > 1 && getBalance(root->left) < 0)
+      {
+          root->left =  leftRotate(root->left);
+          return rightRotate(root);
+      }
+
+      if (balance < -1 && getBalance(root->right) <= 0)
+          return leftRotate(root);
+
+      if (balance < -1 && getBalance(root->right) > 0)
+      {
+          root->right = rightRotate(root->right);
+          return leftRotate(root);
+      }
+
+      return root;
+  }
   void preOrder(struct status *root)
   {
   	if(root != NULL)
@@ -167,14 +250,15 @@ int main()
     }
     if(control == 2)
     {
-      // printf("Enter event details to delete and y\n");
-      // scanf("%d%d%d%d%d",&xs,&ys,&xe,&ye,&ycor);
-      // newl.sx = xs;
-      // newl.sy = ys;
-      // newl.ex = xe;
-      // newl.ey = ye;
-      // deleteNode(root, newl,ycor);
-      // printf("Deleted from status \n");
+      printf("Enter event details to delete and y\n");
+      scanf("%d%d%d%d%d",&xs,&ys,&xe,&ye,&ycor);
+      newl.sx = xs;
+      newl.sy = ys;
+      newl.ex = xe;
+      newl.ey = ye;
+      deleteNode(root, newl,ycor);
+      deleteNode(root, newl,ycor);
+      printf("Deleted from status \n");
     }
     preOrder(root);
     printf("Enter 1 to push 2 to pop 0 to exit\n");
