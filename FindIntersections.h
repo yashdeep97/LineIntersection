@@ -32,7 +32,7 @@ struct lineSegment
 class FindIntersections
 {
     private:
-        // use priority queue as the event queue for time being
+        // initialise eventQueue and status
         EventQueue eventQueue = new EventQueue();
         Status status = new Status();
     public:
@@ -56,16 +56,41 @@ class FindIntersections
             
         }
 
+        point interscionOf(lineSegment l1, lineSegment l2){
+            // Line l1 represented as a1x + b1y = c1 
+            double a1 = l1.endY - l1.startY; 
+            double b1 = l1.startX - l1.endX; 
+            double c1 = a1*(l1.startX) + b1*(l1.startY); 
+        
+            // Line l2 represented as a2x + b2y = c2 
+            double a2 = l2.endY - l2.startY; 
+            double b2 = l2.startX - l2.endX; 
+            double c2 = a1*(l2.startX) + b1*(l2.startY); 
+        
+            double determinant = a1*b2 - a2*b1; 
+            point intersection;
+            if (determinant == 0) 
+            { 
+                // The lines are parallel.
+                intersection.x = -1;
+                intersection.y = -1;
+            } 
+            else
+            { 
+                intersection.x = (b2*c1 - b1*c2)/determinant; 
+                intersection.y = (a1*c2 - a2*c1)/determinant;
+            }
+            return intersection;
+        }
+
         void findNewEvent(lineSegment sl, lineSegment sr, p){
             //find intersection point of sl and sr
             point newEventPoint = intsertionOf(sl, sr);
 
-            if(!eventQueue.find(newEventPoint)){
-                if(newEventPoint.y < p.y){
-                    eventQueue.insert(newEventPoint);
-                } else if(newEventPoint.y == p.y && newEventPoint.x > p.x){
-                    eventQueue.insert(newEventPoint);
-                }
+            if(newEventPoint.y < p.y){
+                eventQueue.insert(newEventPoint);
+            } else if(newEventPoint.y == p.y && newEventPoint.x > p.x){
+                eventQueue.insert(newEventPoint);
             }
             
         }
