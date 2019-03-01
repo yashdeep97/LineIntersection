@@ -1,4 +1,4 @@
-#include "algorithm.h"
+#include "FindIntersections.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 1000
@@ -12,7 +12,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
 int runAlgorithmFlag = 0;
 vector<lineSegment> segmentVector;
-
+vector<int> a;
 int main(void)
 {
     GLFWwindow* window;
