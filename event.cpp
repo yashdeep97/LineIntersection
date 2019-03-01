@@ -2,15 +2,17 @@
 #include<stdlib.h>
 #include<vector>
 #include<bits/stdc++.h>
+#include <GLFW/glfw3.h>
+
 using namespace std;
 struct line
 {
-  int sx,sy,ex,ey;
+  GLfloat sx,sy,ex,ey;
 };
 
 struct q
 {
-	int xc,yc;
+	GLfloat xc,yc;
 	struct q *left;
 	struct q *right;
   vector<line> U;
@@ -30,7 +32,11 @@ int max(int a, int b)
 	return (a > b)? a : b;
 }
 
-struct q* newq(int xc,int yc,int xs,int ys,int xe,int ye, int teller)
+// value for teller
+// 1 - upper endpoint
+// 2- lower endpoint
+// 3 - interior point
+struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
 {
 	struct q* node = (struct q*)
 						malloc(sizeof(struct q));
@@ -82,7 +88,8 @@ struct q *leftRotate(struct q *x)
 	y->height = max(height(y->left), height(y->right))+1;
 	return y;
 }
-int mygreater(int x1, int y1, int x2, int y2)
+
+int mygreater(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
 {
   if(y1<y2)
   return 0;
@@ -96,7 +103,7 @@ int mygreater(int x1, int y1, int x2, int y2)
     return 1;
   }
 }
-int mylesser(int x1, int y1, int x2, int y2)
+int mylesser(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
 {
   if(y1<y2)
   return 1;
@@ -117,7 +124,7 @@ int getBalance(struct q *N)
 	return height(N->left) - height(N->right);
 }
 
-struct q* insert(struct q* node, int xc,int yc,int xs,int ys, int xe,int ye,int teller)
+struct q* insert(struct q* node, GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye,int teller)
 {
 
 	if (node == NULL)
@@ -252,7 +259,7 @@ struct q * maxValueNode(struct q* node)
 
     return current;
 }
-struct q* deleteNode(struct q* root, int xc, int yc)
+struct q* deleteNode(struct q* root, GLfloat xc, GLfloat yc)
 {
 
     if (root == NULL)
@@ -337,7 +344,7 @@ void preOrder(struct q *root)
 {
 	if(root != NULL)
 	{
-		printf("%d %d %d\n",root->xc, root->yc,root->height);
+		printf("%f %f %d\n",root->xc, root->yc,root->height);
 		preOrder(root->left);
 		preOrder(root->right);
 	}
@@ -352,22 +359,23 @@ struct q *root = NULL;
 printf("Enter co-ordinates 1 to push 2 to pop 0 to exit\n");
 int control;
 scanf("%d",&control);
-int x,y,xs,ys,xe,ye,teller;
+GLfloat x,y,xs,ys,xe,ye;
+int teller;
 while(control!=0)
 {
   if(control==1)
   {
       printf("Enter new event details\n");
-      scanf("%d%d%d%d%d%d%d",&x,&y,&xs,&ys,&xe,&ye,&teller);
+      scanf("%f%f%f%f%f%f%d",&x,&y,&xs,&ys,&xe,&ye,&teller);
       root = insert (root,x,y,xs,ys,xe,ye,teller);
-      printf("Inserted %d,%d\n",x,y);
+      printf("Inserted %f,%f\n",x,y);
 
   }
   if(control == 2)
   {
     struct q* pop = maxValueNode(root);
     //pop is what is taken out
-    printf("popping event point %d,%d \n",pop->xc,pop->yc);
+    printf("popping event point %f,%f \n",pop->xc,pop->yc);
     deleteNode(root, pop->xc, pop-> yc);
   }
   preOrder(root);
