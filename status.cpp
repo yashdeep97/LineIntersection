@@ -2,12 +2,16 @@
 #include<stdlib.h>
 #include<vector>
 #include<bits/stdc++.h>
+#include <GLFW/glfw3.h>
+
 using namespace std;
+
 int globalinsert = 0;
 struct line
 {
-  int sx,sy,ex,ey;
+  GLfloat sx,sy,ex,ey;
 };
+
 struct status
 {
   line l;
@@ -15,16 +19,19 @@ struct status
 	struct status *right;
   int height;
 };
+
 int height(struct status *N)
 {
 	if (N == NULL)
 		return 0;
 	return N->height;
 }
+
 int max(int a, int b)
 {
 	return (a > b)? a : b;
 }
+
 struct status* newstatus(line newl)
 {
 	struct status* node = (struct status*)
@@ -35,6 +42,7 @@ struct status* newstatus(line newl)
 	node->height = 1;
 	return(node);
 }
+
 struct status *rightRotate(struct status *y)
 {
 	struct status *x = y->left;
@@ -63,17 +71,20 @@ struct status *leftRotate(struct status *x)
 	y->height = max(height(y->left), height(y->right))+1;
 	return y;
 }
+
 int findx (line l, int y)
 {
   return y*((l.ex-l.sx)/(l.ey-l.sy));
 }
+
 int getBalance(struct status *N)
 {
 	if (N == NULL)
 		return 0;
 	return height(N->left) - height(N->right);
 }
-struct status* insert(struct status* node, line newl, int ycor)
+
+struct status* insert(struct status* node, line newl, GLfloat ycor)
 {
   int *justinserted = &globalinsert;
 
@@ -132,6 +143,7 @@ struct status* insert(struct status* node, line newl, int ycor)
 
   	return node;
   }
+
   struct status * minValueNode(struct status* node)
   {
       struct status* current = node;
@@ -142,7 +154,8 @@ struct status* insert(struct status* node, line newl, int ycor)
 
       return current;
   }
-  struct status* deleteNode(struct status* root, line newl, int ycor)
+
+  struct status* deleteNode(struct status* root, line newl, GLfloat ycor)
   {
 
       if (root == NULL)
@@ -215,11 +228,12 @@ struct status* insert(struct status* node, line newl, int ycor)
 
       return root;
   }
+  
   void preOrder(struct status *root)
   {
   	if(root != NULL)
   	{
-  		printf("%d %d %d %d %d\n",root->l.sx, root->l.sy,root->l.ex,root->l.ey,root->height);
+  		printf("%f %f %f %f %d\n",root->l.sx, root->l.sy,root->l.ex,root->l.ey,root->height);
   		preOrder(root->left);
   		preOrder(root->right);
   	}
@@ -232,32 +246,32 @@ int main()
   int control;
   line newl;
   scanf("%d",&control);
-  int xs,ys,xe,ye,ycor;
+  GLfloat xs,ys,xe,ye,ycor;
   while(control!=0)
   {
     if(control==1)
     {
         globalinsert = 0;
         printf("Enter new event details and y\n");
-        scanf("%d%d%d%d%d",&xs,&ys,&xe,&ye,&ycor);
+        scanf("%f%f%f%f%f",&xs,&ys,&xe,&ye,&ycor);
         newl.sx = xs;
         newl.sy = ys;
         newl.ex = xe;
         newl.ey = ye;
-        root = insert (root,newl,ycor);
+        root = insert (root,newl,ycor-1);
         printf("Inserted\n");
 
     }
     if(control == 2)
     {
       printf("Enter event details to delete and y\n");
-      scanf("%d%d%d%d%d",&xs,&ys,&xe,&ye,&ycor);
+      scanf("%f%f%f%f%f",&xs,&ys,&xe,&ye,&ycor);
       newl.sx = xs;
       newl.sy = ys;
       newl.ex = xe;
       newl.ey = ye;
-      deleteNode(root, newl,ycor);
-      deleteNode(root, newl,ycor);
+      deleteNode(root, newl,ycor+1);
+      deleteNode(root, newl,ycor+1);
       printf("Deleted from status \n");
     }
     preOrder(root);
