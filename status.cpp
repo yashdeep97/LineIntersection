@@ -239,9 +239,9 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
   	}
   }
 
-  void getleftNeighbor(struct status* root, ){
+  // void getleftNeighbor(struct status* root, ){
 
-  }
+  // }
 
 int main()
 {
