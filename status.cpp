@@ -102,7 +102,7 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
       {
         node->right = newstatus(node->l);
         node->l = newl;
-        justinserted = 0;
+        *justinserted = 0;
       }
     }
     else if (findx(newl,ycor) > findx(node->l,ycor))
@@ -113,7 +113,7 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
       {
         printf("copying to left leaf\n");
         node->left = newstatus(node->l);
-        justinserted = 0;
+        *justinserted = 0;
       }
     }
     else
