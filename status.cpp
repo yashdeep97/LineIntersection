@@ -72,7 +72,7 @@ struct status *leftRotate(struct status *x)
 	return y;
 }
 
-int findx (line l, int y)
+int findx (line l, GLfloat y)
 {
   return y*((l.ex-l.sx)/(l.ey-l.sy));
 }
@@ -228,15 +228,19 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
 
       return root;
   }
-  
+
   void preOrder(struct status *root)
   {
   	if(root != NULL)
   	{
-  		printf("%f %f %f %f %d\n",root->l.sx, root->l.sy,root->l.ex,root->l.ey,root->height);
+  		printf("%f %f %f %f %d\n", root->l.sx, root->l.sy,root->l.ex,root->l.ey,root->height);
   		preOrder(root->left);
   		preOrder(root->right);
   	}
+  }
+
+  void getleftNeighbor(struct status* root, ){
+
   }
 
 int main()
@@ -252,7 +256,7 @@ int main()
     if(control==1)
     {
         globalinsert = 0;
-        printf("Enter new event details and y\n");
+        printf("Enter new line segment details and y\n");
         scanf("%f%f%f%f%f",&xs,&ys,&xe,&ye,&ycor);
         newl.sx = xs;
         newl.sy = ys;
