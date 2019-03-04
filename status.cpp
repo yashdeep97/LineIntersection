@@ -72,7 +72,7 @@ struct status *leftRotate(struct status *x)
 	return y;
 }
 
-int findx (line l, GLfloat y)
+GLfloat findx (line l, GLfloat y)
 {
   return y*((l.ex-l.sx)/(l.ey-l.sy));
 }
@@ -239,9 +239,55 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
   	}
   }
 
-  // void getleftNeighbor(struct status* root, ){
+  // Get the left neighbor of a particular line segment from the status tree for STEP 12
+  void getLeftNeighbor(struct status* node, line l, GLfloat ycor, struct status* lastRight){
+    if(node->height == 1){
+      return;
+    }
+    if ((findx(l,ycor-0.1) - 0.1) < findx(node->l,ycor-0.1))
+    {
+      getLeftNeighbor(node->left, l, ycor, lastRight);
+    }
+    else if ((findx(l,ycor-0.1) - 0.1) > findx(node->l, ycor-0.1))
+    {
+      *lastRight = *node;
+      getLeftNeighbor(node->right, l, ycor, lastRight);
+    }
+  }
 
-  // }
+  // Get the left neighbor of a particular line segment from the status tree for STEP 15
+  void getRightNeighbor(struct status* node, line l, GLfloat ycor, struct status* lastLeft){
+    if(node->height == 1){
+      return;
+    }
+    if ((findx(l,ycor-0.1) + 0.1) < findx(node->l,ycor-0.1))
+    {
+      *lastLeft = *node;
+      getRightNeighbor(node->left, l, ycor, lastLeft);
+    }
+    else if ((findx(l,ycor-0.1) + 0.1) > findx(node->l, ycor-0.1))
+    {
+      getRightNeighbor(node->right, l, ycor, lastLeft);
+    }
+  }
+
+  // Get left and right neighboring segments of a point, STEP 9
+  // lastLeft is the right neighbor and lastRight is the left neighbor for the point 
+  void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct status* lastRight, struct status* lastLeft){
+    if(node->height == 1){
+      return;
+    }
+    if (xcor < findx(node->l,ycor-0.1))
+    {
+      *lastLeft = *node;
+      getNeighbors(node->left, xcor, ycor, lastRight, lastLeft);
+    }
+    else if (xcor > findx(node->l, ycor-0.1))
+    {
+      *lastRight = *node;
+      getNeighbors(node->right, xcor, ycor, lastRight, lastLeft);
+    }
+  }
 
 int main()
 {
