@@ -273,18 +273,20 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
 
   // Get left and right neighboring segments of a point, STEP 9
   // lastLeft is the right neighbor and lastRight is the left neighbor for the point 
-  void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct status* lastRight, struct status* lastLeft){
+  void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct line* lastRight, struct line* lastLeft){
     if(node->height == 1){
       return;
     }
     if (xcor < findx(node->l,ycor-0.1))
     {
-      *lastLeft = *node;
+      printf("go left");
+      *lastLeft = node->l;
       getNeighbors(node->left, xcor, ycor, lastRight, lastLeft);
     }
     else if (xcor > findx(node->l, ycor-0.1))
     {
-      *lastRight = *node;
+      printf("go right");
+      *lastRight = node->l;
       getNeighbors(node->right, xcor, ycor, lastRight, lastLeft);
     }
   }
@@ -323,6 +325,28 @@ int main()
       deleteNode(root, newl,ycor+1);
       deleteNode(root, newl,ycor+1);
       printf("Deleted from status \n");
+    }
+    if(control == 3){
+      printf("enter point: \n");
+      GLfloat px, py;
+      scanf("%f %f", &px, &py);
+      struct line leftl;
+      struct line rightl;
+      leftl.sx = -1;
+      rightl.sx = -1;
+      
+      getNeighbors(root, px, py, &leftl, &rightl);
+      if(leftl.sx == -1){
+        printf("no left line\n");
+      }
+      else{
+        printf("\nleft line: %f %f %f %f", leftl.sx, leftl.sy, leftl.ex, leftl.ey );
+      }
+      if (rightl.sx == -1) {
+        printf("no right line\n");
+      } else {
+        printf("\nright line: %f %f %f %f", rightl.sx, rightl.sy, rightl.ex, rightl.ey );
+      }      
     }
     preOrder(root);
     printf("Enter 1 to push 2 to pop 0 to exit\n");
