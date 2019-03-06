@@ -74,7 +74,7 @@ struct status *leftRotate(struct status *x)
 
 GLfloat findx (line l, GLfloat y)
 {
-  return y*((l.ex-l.sx)/(l.ey-l.sy));
+  return ((y-l.ey)*((l.ex-l.sx)/(l.ey-l.sy)))+l.ex;
 }
 
 int getBalance(struct status *N)
@@ -240,8 +240,13 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
   }
 
   // Get the left neighbor of a particular line segment from the status tree for STEP 12
-  void getLeftNeighbor(struct status* node, line l, GLfloat ycor, struct status* lastRight){
+  void getLeftNeighbor(struct status* node, line l, GLfloat ycor, struct line* lastRight){
     if(node->height == 1){
+      if(lastRight->sx == -1){
+        if(findx(node->l,ycor-0.1) < findx(l,ycor-0.1)){
+          *lastRight = node->l;
+        }
+      }
       return;
     }
     if ((findx(l,ycor-0.1) - 0.1) < findx(node->l,ycor-0.1))
@@ -250,19 +255,24 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
     }
     else if ((findx(l,ycor-0.1) - 0.1) > findx(node->l, ycor-0.1))
     {
-      *lastRight = *node;
+      *lastRight = node->l;
       getLeftNeighbor(node->right, l, ycor, lastRight);
     }
   }
 
   // Get the left neighbor of a particular line segment from the status tree for STEP 15
-  void getRightNeighbor(struct status* node, line l, GLfloat ycor, struct status* lastLeft){
+  void getRightNeighbor(struct status* node, line l, GLfloat ycor, struct line* lastLeft){
     if(node->height == 1){
+      if (lastLeft->sx == -1) {
+        if(findx(node->l,ycor-0.1) > findx(l,ycor-0.1)){
+          *lastLeft = node->l;
+        }
+      }
       return;
     }
     if ((findx(l,ycor-0.1) + 0.1) < findx(node->l,ycor-0.1))
     {
-      *lastLeft = *node;
+      *lastLeft = node->l;
       getRightNeighbor(node->left, l, ycor, lastLeft);
     }
     else if ((findx(l,ycor-0.1) + 0.1) > findx(node->l, ycor-0.1))
@@ -275,6 +285,17 @@ struct status* insert(struct status* node, line newl, GLfloat ycor)
   // lastLeft is the right neighbor and lastRight is the left neighbor for the point 
   void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct line* lastRight, struct line* lastLeft){
     if(node->height == 1){
+      if(lastRight->sx == -1){
+        if(findx(node->l,ycor-0.1) < xcor){
+          *lastRight = node->l;
+        }
+      }
+      if (lastLeft->sx == -1) {
+        if(findx(node->l,ycor-0.1) > xcor){
+          *lastLeft = node->l;
+        }
+      }
+      
       return;
     }
     if (xcor < findx(node->l,ycor-0.1))
@@ -335,7 +356,7 @@ int main()
       leftl.sx = -1;
       rightl.sx = -1;
       
-      getNeighbors(root, px, py, &leftl, &rightl);
+      getNeighbors(root, px, py-0.1, &leftl, &rightl);
       if(leftl.sx == -1){
         printf("no left line\n");
       }
