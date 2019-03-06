@@ -39,8 +39,8 @@ int main()
       newl.sy = ys;
       newl.ex = xe;
       newl.ey = ye;
-      newstatus.deleteNode(root, newl,ycor+1);
-      newstatus.deleteNode(root, newl,ycor+1);
+      root = newstatus.deleteNode(root, newl,ycor+1);
+      root = newstatus.deleteNode(root, newl,ycor+1);
       printf("Deleted from status \n");
     }
     if(control == 3){
