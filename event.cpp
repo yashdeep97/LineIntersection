@@ -28,11 +28,14 @@ while(control!=0)
   }
   if(control == 2)
   {
+    if(root == NULL)
+    continue;
     struct q* pop = newevent.maxValueNode(root);
     //pop is what is taken out
     printf("popping event point %f,%f \n",pop->xc,pop->yc);
-    newevent.deleteNode(root, pop->xc, pop-> yc);
+    root = newevent.deleteNode(root, pop->xc, pop-> yc);
   }
+  if(root!=NULL)
   newevent.preOrder(root);
   printf("Enter co-ordinates 1 to push 2 to pop 0 to exit\n");
   scanf("%d",&control);

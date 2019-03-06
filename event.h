@@ -301,6 +301,7 @@ public:
 
               if (temp == NULL)
               {
+                  printf("Deleting last element\n");
                   temp = root;
                   root = NULL;
               }
