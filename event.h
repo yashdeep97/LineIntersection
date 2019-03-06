@@ -7,11 +7,12 @@
 #include<bits/stdc++.h>
 #include <GLFW/glfw3.h>
 using namespace std;
+/// structure that stores a line in the form of start and end points
 struct line
 {
   GLfloat sx,sy,ex,ey;
 };
-
+/// basic structure for the q tree
 struct q
 {
 	GLfloat xc,yc;
@@ -22,12 +23,13 @@ struct q
   vector<line> L;
 	int height;
 };
-
+/// a class that contains functions to delete and insert to the tree as well as find an event point
 class event
 {
 private:
 
 public:
+  ///function to find height of a node
   int height(struct q *N)
   {
   	if (N == NULL)
@@ -38,11 +40,12 @@ public:
   {
   	return (a > b)? a : b;
   }
-
+  /// function to create a new node
   // value for teller
   // 1 - upper endpoint
   // 2- lower endpoint
   // 3 - interior point
+
   struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
   {
   	struct q* node = (struct q*)
@@ -66,7 +69,7 @@ public:
   	return(node);
   }
 
-
+  /// function to right rightRotate about a node to rebalance
   struct q *rightRotate(struct q *y)
   {
   	struct q *x = y->left;
@@ -81,6 +84,7 @@ public:
 
   	return x;
   }
+  /// function to right leftRotate about a node to rebalance
 
   struct q *leftRotate(struct q *x)
   {
@@ -95,7 +99,7 @@ public:
   	y->height = max(height(y->left), height(y->right))+1;
   	return y;
   }
-
+  /// function used as a comparator for insertion and deletion
   int mygreater(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
   {
     if(y1<y2)
@@ -110,6 +114,7 @@ public:
       return 1;
     }
   }
+  /// function used as a comparator for insertion and deletion
   int mylesser(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
   {
     if(y1<y2)
@@ -124,13 +129,14 @@ public:
       return 0;
     }
   }
+  /// function to get balance factor of a node
   int getBalance(struct q *N)
   {
   	if (N == NULL)
   		return 0;
   	return height(N->left) - height(N->right);
   }
-
+  /// function to insert a new event point
   struct q* insert(struct q* node, GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye,int teller)
   {
 
@@ -245,7 +251,7 @@ public:
 
   	return node;
   }
-
+  /// function to find min vale node for bst deletion
   struct q * minValueNode(struct q* node)
   {
       struct q* current = node;
@@ -256,6 +262,7 @@ public:
 
       return current;
   }
+  /// function to find node to pop
   struct q * maxValueNode(struct q* node)
   {
       struct q* current = node;
@@ -266,6 +273,7 @@ public:
 
       return current;
   }
+  /// function to delete the enent point that is to be popped
   struct q* deleteNode(struct q* root, GLfloat xc, GLfloat yc)
   {
 
@@ -347,6 +355,7 @@ public:
 
       return root;
   }
+  /// function to print preorder of current tree
   void preOrder(struct q *root)
   {
   	if(root != NULL)
