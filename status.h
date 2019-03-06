@@ -4,22 +4,25 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<vector>
-#include<bits/stdc++.h>
 #include <GLFW/glfw3.h>
 using namespace std;
 /**
-  * structure that stores a line in terms of start and end point
+  * structure that stores a line segment in terms of start and end point
 */
-struct line
+//struct to represent a line segment
+struct lineSegment
 {
-  GLfloat sx,sy,ex,ey;
+    GLfloat startX;
+    GLfloat startY;
+    GLfloat endX = -1;
+    GLfloat endY = -1;
 };
 /**
   *main status structure from which the tree is built which contains the line as its key
   */
 struct status
 {
-  line l;
+  lineSegment l;
   struct status *left;
 	struct status *right;
   int height;
@@ -55,7 +58,7 @@ public:
     	return (a > b)? a : b;
     }
     /// function to create a new node
-    struct status* newstatus(line newl)
+    struct status* newstatus(lineSegment newl)
     {
     	struct status* node = (struct status*)
     						malloc(sizeof(struct status));
@@ -95,9 +98,9 @@ public:
     	return y;
     }
     //function to find x co-ordinate of a line given the two end points and y co-ordinate
-    GLfloat findx (line l, GLfloat y)
+    GLfloat findx (lineSegment l, GLfloat y)
     {
-      return ((y-l.ey)*((l.ex-l.sx)/(l.ey-l.sy)))+l.ex;
+      return ((y-l.endY)*((l.endX-l.startX)/(l.endY-l.startY)))+l.endX;
     }
     /// function to get balance factor which is the max difference between the leaf nodes
     int getBalance(struct status *N)
@@ -107,7 +110,7 @@ public:
     	return height(N->left) - height(N->right);
     }
     /// function to insert a new line
-    struct status* insert(struct status* node, line newl, GLfloat ycor)
+    struct status* insert(struct status* node, lineSegment newl, GLfloat ycor)
     {
       int *justinserted = &globalinsert;
 
@@ -178,7 +181,7 @@ public:
           return current;
       }
       /// function to delete a line
-      struct status* deleteNode(struct status* root, line newl, GLfloat ycor)
+      struct status* deleteNode(struct status* root, lineSegment newl, GLfloat ycor)
       {
 
           if (root == NULL)
@@ -256,16 +259,16 @@ public:
       {
       	if(root != NULL)
       	{
-      		printf("%f %f %f %f %d\n", root->l.sx, root->l.sy,root->l.ex,root->l.ey,root->height);
+      		printf("%f %f %f %f %d\n", root->l.startX, root->l.startY,root->l.endX,root->l.endY,root->height);
       		preOrder(root->left);
       		preOrder(root->right);
       	}
       }
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 12
-      void getLeftNeighbor(struct status* node, line l, GLfloat ycor, struct line* lastRight){
+      void getLeftNeighbor(struct status* node, lineSegment l, GLfloat ycor, struct lineSegment* lastRight){
         if(node->height == 1){
-          if(lastRight->sx == -1){
+          if(lastRight->startX == -1){
             if(findx(node->l,ycor-0.1) < findx(l,ycor-0.1)){
               *lastRight = node->l;
             }
@@ -284,9 +287,9 @@ public:
       }
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 15
-      void getRightNeighbor(struct status* node, line l, GLfloat ycor, struct line* lastLeft){
+      void getRightNeighbor(struct status* node, lineSegment l, GLfloat ycor, struct lineSegment* lastLeft){
         if(node->height == 1){
-          if (lastLeft->sx == -1) {
+          if (lastLeft->startX == -1) {
             if(findx(node->l,ycor-0.1) > findx(l,ycor-0.1)){
               *lastLeft = node->l;
             }
@@ -306,14 +309,14 @@ public:
 
       /// Get left and right neighboring segments of a point, STEP 9
       /// lastLeft is the right neighbor and lastRight is the left neighbor for the point
-      void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct line* lastRight, struct line* lastLeft){
+      void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct lineSegment* lastRight, struct lineSegment* lastLeft){
         if(node->height == 1){
-          if(lastRight->sx == -1){
+          if(lastRight->startX == -1){
             if(findx(node->l,ycor-0.1) < xcor){
               *lastRight = node->l;
             }
           }
-          if (lastLeft->sx == -1) {
+          if (lastLeft->startX == -1) {
             if(findx(node->l,ycor-0.1) > xcor){
               *lastLeft = node->l;
             }

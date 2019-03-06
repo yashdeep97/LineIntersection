@@ -1,13 +1,10 @@
 #ifndef ALGO_H
 #define ALGO_H
 
-#include <iostream>
-#include <stdlib.h>
-#include <GLFW/glfw3.h>
 #include <algorithm>
-#include <vector>
 #include <queue>
-#include <set>
+#include "status.h"
+#include "event.h"
 
 using namespace std;
 
@@ -18,37 +15,37 @@ struct point
     GLfloat y;
 };
 
-//struct to represent a line segment
-struct lineSegment
-{
-    GLfloat startX;
-    GLfloat startY;
-    GLfloat endX = -1;
-    GLfloat endY = -1;
-};
-
-
-
 class FindIntersections
 {
     private:
         // initialise eventQueue and status
-        EventQueue eventQueue = new EventQueue();
-        Status status = new Status();
+        event eventQueue = event();
+        struct q *eventQueueRoot = NULL;
+        statustree status = statustree();
     public:
         // constructor to initialise event queue and status
         FindIntersections( vector<lineSegment> segmentVector ){
             for(size_t i = 0; i < segmentVector.size(); i++)
-            {
-                struct point start, end;
-                start.x = segmentVector[i].startX;
-                start.y = segmentVector[i].startY;
-                end.x = segmentVector[i].endX;
-                end.y = segmentVector[i].endY;
-
+            {   
+                GLfloat startx, starty, endx, endy;
+                if(segmentVector[i].startY >= segmentVector[i].endY){
+                    startx = segmentVector[i].startX;
+                    starty = segmentVector[i].startY;
+                    endx = segmentVector[i].endX;
+                    endy = segmentVector[i].endY;
+                } else {
+                    startx = segmentVector[i].endX;
+                    starty = segmentVector[i].endY;
+                    endx = segmentVector[i].startX;
+                    endy = segmentVector[i].startY;
+                }
+                
+                // printf("%f %f %f %f\n", startx, starty, endx, endy);             
+                
                 // insert end points into the event queue.
-                eventQueue.insert(start, end);
-                eventQueue.insert(end);
+                eventQueueRoot = eventQueue.insert( eventQueueRoot, startx, starty, startx, starty, endx, endy, 1);
+                eventQueueRoot = eventQueue.insert( eventQueueRoot, endx, endy, startx, starty, endx, endy, 2);
+                // eventQueue.preOrder(eventQueueRoot);
             }
         }
 
@@ -109,84 +106,90 @@ class FindIntersections
             return false; // Doesn't fall in any of the above cases 
         } 
 
-        point intsertionOf(lineSegment l1, lineSegment l2){
+        // point intsertionOf(lineSegment l1, lineSegment l2){
             
-            point intersection;
-            if (doIntersect(l1, l2) == 0) 
-            { 
-                // The line segments do not intersect.
-                intersection.x = -1;
-                intersection.y = -1;
-            } 
-            else
-            {   
-                // Line l1 represented as a1x + b1y = c1 
-                double a1 = l1.endY - l1.startY; 
-                double b1 = l1.startX - l1.endX; 
-                double c1 = a1*(l1.startX) + b1*(l1.startY); 
+        //     point intersection;
+        //     if (doIntersect(l1, l2) == 0) 
+        //     { 
+        //         // The line segments do not intersect.
+        //         intersection.x = -1;
+        //         intersection.y = -1;
+        //     } 
+        //     else
+        //     {   
+        //         // Line l1 represented as a1x + b1y = c1 
+        //         double a1 = l1.endY - l1.startY; 
+        //         double b1 = l1.startX - l1.endX; 
+        //         double c1 = a1*(l1.startX) + b1*(l1.startY); 
             
-                // Line l2 represented as a2x + b2y = c2 
-                double a2 = l2.endY - l2.startY; 
-                double b2 = l2.startX - l2.endX; 
-                double c2 = a1*(l2.startX) + b1*(l2.startY); 
+        //         // Line l2 represented as a2x + b2y = c2 
+        //         double a2 = l2.endY - l2.startY; 
+        //         double b2 = l2.startX - l2.endX; 
+        //         double c2 = a1*(l2.startX) + b1*(l2.startY); 
             
-                double determinant = a1*b2 - a2*b1; 
-                intersection.x = (b2*c1 - b1*c2)/determinant; 
-                intersection.y = (a1*c2 - a2*c1)/determinant;
-            }
-            return intersection;
-        }
+        //         double determinant = a1*b2 - a2*b1; 
+        //         intersection.x = (b2*c1 - b1*c2)/determinant; 
+        //         intersection.y = (a1*c2 - a2*c1)/determinant;
+        //     }
+        //     return intersection;
+        // }
 
-        void findNewEvent(lineSegment sl, lineSegment sr, p){
-            //find intersection point of sl and sr
-            point newEventPoint = intsertionOf(sl, sr);
+        // void findNewEvent(lineSegment sl, lineSegment sr, p){
+        //     //find intersection point of sl and sr
+        //     point newEventPoint = intsertionOf(sl, sr);
 
-            if(newEventPoint.y < p.y){
-                eventQueue.insert(newEventPoint);
-            } else if(newEventPoint.y == p.y && newEventPoint.x > p.x){
-                eventQueue.insert(newEventPoint);
-            }
+        //     if(newEventPoint.y < p.y){
+        //         eventQueue.insert(newEventPoint);
+        //     } else if(newEventPoint.y == p.y && newEventPoint.x > p.x){
+        //         eventQueue.insert(newEventPoint);
+        //     }
             
+        // }
+
+        vector<lineSegment> unionOf(vector<lineSegment> a, vector<lineSegment> b){
+            vector<lineSegment> unionVec;
+
+            return unionVec;
         }
 
         // handle each event point popped from the event queue
-        void handleEventPoint(point p){
-            // get segments whose upper endpoints is p
-            vector<lineSegment> Up = 
-            // get segments whose lwer end point is p
-            vector<lineSegment> Lp = 
-            //get line segments that contain p
-            vector<lineSegment> Cp = 
+        void handleEventPoint(struct q* eventPoint){
+            printf("hello");
+            
+            // // Union of Lp, Up and Cp
+            // vector<lineSegment> all = unionOf(eventPoint.L, unionOf(eventPoint.U, eventPoint.C));
 
-            // Union of Lp, Up and Cp
-            vector<lineSegment> all = unionOf(Lp, unionOf(Up, Cp));
+            // if (all.size() > 1) {
+            //     // p is an intersection
 
-            if (all.size() > 1) {
-                // p is an intersection
+            // }
+            // // delete elements of Lp union Cp from status
 
-            }
-            // delete elements of Lp union Cp from status
+            // //insert segments in Up union Cp into status according to their position just below the sweep line
 
-            //insert segments in Up union Cp into status according to their position just below the sweep line
-
-            // check if Up union Cp is empty
-            if(empty(unionOf(Up, Cp))){
-                lineSegment sl = status.getLeftNeighbor(p);
-                lineSegment sr = status.getRightNeighbor(p);
-                findNewEvent(sl, sr, p);
-            } else {
+            // // check if Up union Cp is empty
+            // if(empty(unionOf(Up, Cp))){
+            //     lineSegment sl = status.getLeftNeighbor(p);
+            //     lineSegment sr = status.getRightNeighbor(p);
+            //     findNewEvent(sl, sr, p);
+            // } else {
                 
-            }
+            // }
             
 
         }
 
         // Run the algorithm to find the line intersections
         void runAlgorithm(){
-            while(!eventQueue.empty()){
-                handleEventPoint(eventQueue.top());
-                eventQueue.pop();
-            }
+            // while(eventQueueRoot != NULL){
+            //     struct q* pop = eventQueue.maxValueNode(eventQueueRoot);
+            //     eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
+            //     // handleEventPoint(pop);
+            // }
+            
+            
+            // printf("%f %f\n", eventQueueRoot->xc, eventQueueRoot->yc);
+            printf("Execution complete\n");
         }
 
 };

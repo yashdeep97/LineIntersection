@@ -1,3 +1,4 @@
+#include <iostream>
 #include "FindIntersections.h"
 
 #define SCREEN_WIDTH 1000
@@ -10,7 +11,6 @@ void processInput(GLFWwindow *window);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
-int runAlgorithmFlag = 0;
 vector<lineSegment> segmentVector;
 vector<int> a;
 int main(void)
@@ -75,6 +75,10 @@ int main(void)
     }
 
     glfwTerminate();
+
+    FindIntersections findIntersection = FindIntersections(segmentVector);
+    findIntersection.runAlgorithm();
+    
     return 0;
 }
 int lineStartFlag = 0;
@@ -116,8 +120,19 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 } 
 
+void findIntersectionPoints(){
+    FindIntersections findIntersection = FindIntersections(segmentVector);
+    findIntersection.runAlgorithm();
+}
+
 void processInput(GLFWwindow *window)
 {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
         glfwSetWindowShouldClose(window, true);
+        // findIntersectionPoints();
+    }
+        
+
+    // if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
+        // findIntersectionPoints();
 }

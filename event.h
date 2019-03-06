@@ -4,22 +4,18 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<vector>
-#include<bits/stdc++.h>
 #include <GLFW/glfw3.h>
+#include "status.h"
 using namespace std;
-struct line
-{
-  GLfloat sx,sy,ex,ey;
-};
 
 struct q
 {
 	GLfloat xc,yc;
 	struct q *left;
 	struct q *right;
-  vector<line> U;
-  vector<line> C;
-  vector<line> L;
+  vector<lineSegment> U;
+  vector<lineSegment> C;
+  vector<lineSegment> L;
 	int height;
 };
 
@@ -41,7 +37,7 @@ public:
 
   // value for teller
   // 1 - upper endpoint
-  // 2- lower endpoint
+  // 2 - lower endpoint
   // 3 - interior point
   struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
   {
@@ -49,11 +45,11 @@ public:
   						malloc(sizeof(struct q));
   	node->xc = xc;
     node->yc = yc;
-    line l;
-    l.sx = xs;
-    l.sy = ys;
-    l.ex = xe;
-    l.ey = ye;
+    lineSegment l;
+    l.startX = xs;
+    l.startY = ys;
+    l.endX = xe;
+    l.endY = ye;
     if(teller == 1)
     node->U.push_back(l);
     else if(teller ==2)
@@ -164,17 +160,17 @@ public:
         {
           for(int q=0;q<node->U.size();q++)
           {
-            line l = node->U[q];
-            if(l.sx == xs && l.sy == ys && l.ex == xe && l.ey == ye)
+            lineSegment l = node->U[q];
+            if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
             counter == 0;
           }
           if(counter ==1)
           {
-            line l;
-            l.sx = xs;
-            l.sy = ys;
-            l.ex = xe;
-            l.ey = ye;
+            lineSegment l;
+            l.startX = xs;
+            l.startY = ys;
+            l.endX = xe;
+            l.endY = ye;
             node->U.push_back(l);
           }
         }
@@ -182,17 +178,17 @@ public:
         {
           for(int q=0;q<node->L.size();q++)
           {
-            line l = node->L[q];
-            if(l.sx == xs && l.sy == ys && l.ex == xe && l.ey == ye)
+            lineSegment l = node->L[q];
+            if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
             counter == 0;
           }
           if(counter ==1)
           {
-            line l;
-            l.sx = xs;
-            l.sy = ys;
-            l.ex = xe;
-            l.ey = ye;
+            lineSegment l;
+            l.startX = xs;
+            l.startY = ys;
+            l.endX = xe;
+            l.endY = ye;
             node->L.push_back(l);
           }
         }
@@ -200,17 +196,17 @@ public:
         {
           for(int q=0;q<node->C.size();q++)
           {
-            line l = node->C[q];
-            if(l.sx == xs && l.sy == ys && l.ex == xe && l.ey == ye)
+            lineSegment l = node->C[q];
+            if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
             counter == 0;
           }
           if(counter ==1)
           {
-            line l;
-            l.sx = xs;
-            l.sy = ys;
-            l.ex = xe;
-            l.ey = ye;
+            lineSegment l;
+            l.startX = xs;
+            l.startY = ys;
+            l.endX = xe;
+            l.endY = ye;
             node->C.push_back(l);
           }
         }

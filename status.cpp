@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<vector>
-#include<bits/stdc++.h>
 #include <GLFW/glfw3.h>
 #include "status.h"
 
