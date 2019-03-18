@@ -137,7 +137,7 @@ public:
           node->right  = insert(node->right, newl,ycor);
           if(*justinserted == 1)
           {
-            printf("copying to left leaf\n");
+            // printf("copying to left leaf\n");
             node->left = newstatus(node->l);
             *justinserted = 0;
           }

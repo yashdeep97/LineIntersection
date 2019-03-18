@@ -42,8 +42,10 @@ public:
 
   struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
   {
+    
   	struct q* node = (struct q*)
   						malloc(sizeof(struct q));
+    
   	node->xc = xc;
     node->yc = yc;
     lineSegment l;
@@ -52,14 +54,20 @@ public:
     l.endX = xe;
     l.endY = ye;
     if(teller == 1)
-    node->U.push_back(l);
-    else if(teller ==2)
-    node->L.push_back(l);
+    {
+      node->U.push_back(l);
+    }
+    else if(teller == 2)
+    {
+      node->L.push_back(l);
+    }
     else
     node->C.push_back(l);
+    
   	node->left = NULL;
   	node->right = NULL;
   	node->height = 1;
+    
   	return(node);
   }
 
@@ -133,12 +141,13 @@ public:
   /// function to insert a new event point
   struct q* insert(struct q* node, GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye,int teller)
   {
-
+    // printf("start insert\n");
   	if (node == NULL)
   		return(newq(xc,yc,xs,ys,xe,ye,teller));
 
       if (yc < node->yc)
       {
+        // printf("Going left\n");
 
         node->left  = insert(node->left, xc,yc,xs,ys,xe,ye,teller);
       }
@@ -166,7 +175,7 @@ public:
           {
             lineSegment l = node->U[q];
             if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
-            counter == 0;
+            counter = 0;
           }
           if(counter ==1)
           {
@@ -184,7 +193,7 @@ public:
           {
             lineSegment l = node->L[q];
             if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
-            counter == 0;
+            counter = 0;
           }
           if(counter ==1)
           {
@@ -202,7 +211,7 @@ public:
           {
             lineSegment l = node->C[q];
             if(l.startX == xs && l.startY == ys && l.endX == xe && l.endY == ye)
-            counter == 0;
+            counter = 0;
           }
           if(counter ==1)
           {
@@ -219,7 +228,7 @@ public:
       }
 
 
-
+    // printf("begin balancing\n");
   	node->height = 1 + max(height(node->left),
   						height(node->right));
 
@@ -242,7 +251,7 @@ public:
   		node->right = rightRotate(node->right);
   		return leftRotate(node);
   	}
-
+    // printf("done balancing\n");
   	return node;
   }
   /// function to find min vale node for bst deletion
@@ -295,7 +304,7 @@ public:
 
               if (temp == NULL)
               {
-                  printf("Deleting last element\n");
+                  // printf("Deleting last element\n");
                   temp = root;
                   root = NULL;
               }
@@ -356,6 +365,16 @@ public:
   	if(root != NULL)
   	{
   		printf("%f %f %d\n",root->xc, root->yc,root->height);
+      
+      for(size_t i = 0; i < root->U.size(); i++)
+      {
+        printf(" U:%f %f %f %f\n", root->U[i].startX, root->U[i].startY, root->U[i].endX, root->U[i].endY);
+      }
+      
+      for(size_t i = 0; i < root->L.size(); i++)
+      {
+        printf(" L:%f %f %f %f\n", root->L[i].startX, root->L[i].startY, root->L[i].endX, root->L[i].endY);
+      }
   		preOrder(root->left);
   		preOrder(root->right);
   	}

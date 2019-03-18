@@ -13,7 +13,7 @@ int main()
   statustree newstatus;
   printf("Enter 1 to push 2 to pop 3 to find neighbour for point 4 to find neighbour for line 0 to exit\n");
   int control;
-  line newl;
+  struct lineSegment newl;
   scanf("%d",&control);
   GLfloat xs,ys,xe,ye,ycor;
   while(control!=0)
@@ -47,8 +47,8 @@ int main()
       printf("enter point: \n");
       GLfloat px, py;
       scanf("%f %f", &px, &py);
-      struct line leftl;
-      struct line rightl;
+      struct lineSegment leftl;
+      struct lineSegment rightl;
       leftl.sx = -1;
       rightl.sx = -1;
 

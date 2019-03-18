@@ -19,9 +19,9 @@ class FindIntersections
 {
     private:
         // initialise eventQueue and status
-        event eventQueue = event();
+        event eventQueue;
         struct q *eventQueueRoot = NULL;
-        statustree status = statustree();
+        // statustree status = statustree();
     public:
         // constructor to initialise event queue and status
         FindIntersections( vector<lineSegment> segmentVector ){
@@ -45,7 +45,6 @@ class FindIntersections
                 // insert end points into the event queue.
                 eventQueueRoot = eventQueue.insert( eventQueueRoot, startx, starty, startx, starty, endx, endy, 1);
                 eventQueueRoot = eventQueue.insert( eventQueueRoot, endx, endy, startx, starty, endx, endy, 2);
-                // eventQueue.preOrder(eventQueueRoot);
             }
         }
 
