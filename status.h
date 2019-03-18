@@ -321,18 +321,18 @@ public:
               *lastLeft = node->l;
             }
           }
-
           return;
         }
+
         if (xcor < findx(node->l,ycor-0.1))
         {
-          printf("go left");
+          // printf("go left");
           *lastLeft = node->l;
           getNeighbors(node->left, xcor, ycor, lastRight, lastLeft);
         }
         else if (xcor > findx(node->l, ycor-0.1))
         {
-          printf("go right");
+          // printf("go right");
           *lastRight = node->l;
           getNeighbors(node->right, xcor, ycor, lastRight, lastLeft);
         }

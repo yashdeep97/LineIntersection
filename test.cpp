@@ -198,31 +198,38 @@ class FindIntersections
 
             if (all.size() > 1) {
                 // p is an intersection
-                printf("%f %f\n", eventPoint->xc, eventPoint->yc);
+                printf("Intersection: %f %f\n", eventPoint->xc, eventPoint->yc);
             }
             // delete elements of Lp union Cp from status
             vector<lineSegment> temp1 = unionOf(eventPoint->L, eventPoint->C);
             for(size_t i = 0; i < temp1.size(); i++)
             {
+                // printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
                 statusRoot = status.deleteNode(statusRoot, temp1[i], eventPoint->yc);
             }
+            // printf("point: %f %f\n", eventPoint->xc, eventPoint->yc);
+            // printf("after deleting:\n");
+            // status.preOrder(statusRoot);
             
             //insert segments in Up union Cp into status according to their position just below the sweep line
             vector<lineSegment> temp2 = unionOf(eventPoint->U, eventPoint->C);
             for(size_t i = 0; i < temp2.size(); i++)
             {
-                statusRoot = status.insert(statusRoot, temp2[i], (eventPoint->yc + 0.1));
+                statusRoot = status.insert(statusRoot, temp2[i], (eventPoint->yc - 0.1));
             }
-            // printf("%ld\n", temp2.size());
+            // printf("after reinserting:\n");
+            // status.preOrder(statusRoot);
+
             // check if Up union Cp is empty
             if(empty(temp2) == 1){
                 struct lineSegment sl, sr;
                 sl.startX = -1;
                 sr.startX = -1;
+                // status.preOrder(statusRoot);
                 status.getNeighbors(statusRoot, eventPoint->xc, (eventPoint->yc)-0.1, &sl, &sr);
-                // if(sl.startX != -1 && sr.startX != -1){
-                //     findNewEvent(sl, sr, eventPoint);
-                // }
+                if(sl.startX != -1 && sr.startX != -1){
+                    findNewEvent(sl, sr, eventPoint);
+                }
             } else {
                 struct lineSegment sll, srr;
                 GLfloat max = -1.0, min = 1001.0; 
