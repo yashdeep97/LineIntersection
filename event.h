@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 #include "status.h"
 using namespace std;
+/// Structure to represent eent queue
 struct q
 {
 	GLfloat xc,yc;
@@ -17,6 +18,7 @@ struct q
   vector<lineSegment> L;
 	int height;
 };
+
 /// a class that contains functions to delete and insert to the tree as well as find an event point
 class event
 {
@@ -30,15 +32,20 @@ public:
   		return 0;
   	return N->height;
   }
+
+  // Function to find maximum of two given numbers
   int max(int a, int b)
   {
   	return (a > b)? a : b;
   }
-  /// function to create a new node
-  // value for teller
-  // 1 - upper endpoint
-  // 2 - lower endpoint
-  // 3 - interior point
+
+  /**
+  * function to create a new node
+  * value for teller
+  * 1 - upper endpoint
+  * 2 - lower endpoint
+  * 3 - interior point
+  */
 
   struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
   {

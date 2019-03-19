@@ -1,4 +1,3 @@
-
 #include <algorithm>
 #include <queue>
 #include "status.h"
@@ -6,7 +5,7 @@
 
 using namespace std;
 
-// struct to represent a point
+/// struct to represent a point
 struct point
 {
     GLfloat x;
@@ -16,13 +15,13 @@ struct point
 class FindIntersections
 {
     private:
-        // initialise eventQueue and status
+        /// initialise eventQueue and status
         event eventQueue;
         struct q *eventQueueRoot = NULL;
         statustree status = statustree();
         struct status *statusRoot = NULL;
     public:
-        // constructor to initialise event queue and status
+        /// constructor to initialise event queue and status
         FindIntersections( vector<lineSegment> segmentVector ){
             for(size_t i = 0; i < segmentVector.size(); i++)
             {   
@@ -41,14 +40,15 @@ class FindIntersections
                 
                 // printf("%f %f %f %f\n", startx, starty, endx, endy);             
                 
-                // insert end points into the event queue.
+                /// insert end points into the event queue.
                 eventQueueRoot = eventQueue.insert( eventQueueRoot, startx, starty, startx, starty, endx, endy, 1);
                 eventQueueRoot = eventQueue.insert( eventQueueRoot, endx, endy, startx, starty, endx, endy, 2);
             }
         }
-
-        // Given three colinear points p, q, r, the function checks if 
-        // point q lies on line segment 'pr' 
+        /**
+        * Given three colinear points p, q, r, the function checks if 
+        * point q lies on line segment 'pr' 
+        */
         bool onSegment(point p, point q, point r) 
         { 
             if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) && 
@@ -57,12 +57,13 @@ class FindIntersections
         
             return false; 
         } 
-        
-        // To find orientation of ordered triplet (p, q, r). 
-        // The function returns following values 
-        // 0 --> p, q and r are colinear 
-        // 1 --> Clockwise 
-        // 2 --> Counterclockwise 
+        /**
+        * To find orientation of ordered triplet (p, q, r). 
+        * The function returns following values 
+        * 0 --> p, q and r are colinear 
+        * 1 --> Clockwise 
+        * 2 --> Counterclockwise 
+        */
         int orientation(point p, point q, point r) 
         { 
             GLfloat val = (q.y - p.y) * (r.x - q.x) - 
@@ -72,9 +73,10 @@ class FindIntersections
         
             return (val > 0)? 1: 2; // clock or counterclock wise 
         } 
-        
-        // The main function that returns true if line segment 'p1q1' 
-        // and 'p2q2' intersect.
+        /**
+        * The main function that returns true if line segment 'p1q1' 
+        * and 'p2q2' intersect.
+        */
         bool doIntersect(lineSegment l1, lineSegment l2)
         { 
             struct point p1, q1, p2, q2;
@@ -86,28 +88,27 @@ class FindIntersections
             p2.y = l2.startY;
             q2.x = l2.endX;
             q2.y = l2.endY;
-            // Find the four orientations needed for general and 
-            // special cases 
+            /// Find the four orientations needed for general and special cases 
             int o1 = orientation(p1, q1, p2); 
             int o2 = orientation(p1, q1, q2); 
             int o3 = orientation(p2, q2, p1); 
             int o4 = orientation(p2, q2, q1); 
         
-            // General case 
+            /// General case 
             if (o1 != o2 && o3 != o4) 
                 return true; 
         
-            // Special Cases 
-            // p1, q1 and p2 are colinear and p2 lies on segment p1q1 
+            /// Special Cases 
+            /// p1, q1 and p2 are colinear and p2 lies on segment p1q1 
             if (o1 == 0 && onSegment(p1, p2, q1)) return true; 
         
-            // p1, q1 and q2 are colinear and q2 lies on segment p1q1 
+            /// p1, q1 and q2 are colinear and q2 lies on segment p1q1 
             if (o2 == 0 && onSegment(p1, q2, q1)) return true; 
         
-            // p2, q2 and p1 are colinear and p1 lies on segment p2q2 
+            /// p2, q2 and p1 are colinear and p1 lies on segment p2q2 
             if (o3 == 0 && onSegment(p2, p1, q2)) return true; 
         
-            // p2, q2 and q1 are colinear and q1 lies on segment p2q2 
+            /// p2, q2 and q1 are colinear and q1 lies on segment p2q2 
             if (o4 == 0 && onSegment(p2, q1, q2)) return true; 
         
             return false; // Doesn't fall in any of the above cases 
@@ -118,18 +119,18 @@ class FindIntersections
             point intersection;
             if (doIntersect(l1, l2) == 0) 
             { 
-                // The line segments do not intersect.
+                /// The line segments do not intersect.
                 intersection.x = -1;
                 intersection.y = -1;
             } 
             else
             {   
-                // Line l1 represented as a1x + b1y = c1 
+                /// Line l1 represented as a1x + b1y = c1 
                 double a1 = l1.endY - l1.startY; 
                 double b1 = l1.startX - l1.endX; 
                 double c1 = a1*(l1.startX) + b1*(l1.startY); 
             
-                // Line l2 represented as a2x + b2y = c2 
+                /// Line l2 represented as a2x + b2y = c2 
                 double a2 = l2.endY - l2.startY; 
                 double b2 = l2.startX - l2.endX; 
                 double c2 = a2*(l2.startX) + b2*(l2.startY); 
@@ -142,7 +143,7 @@ class FindIntersections
         }
 
         void findNewEvent(lineSegment sl, lineSegment sr, struct q* p){
-            //find intersection point of sl and sr
+            ///find intersection point of sl and sr
             struct point newEventPoint = intersectionOf(sl, sr);
             // printf("intersection: %f %f\n", newEventPoint.x, newEventPoint.y);
 
@@ -190,17 +191,17 @@ class FindIntersections
             }
         }
 
-        // handle each event point popped from the event queue
+        /// handle each event point popped from the event queue
         void handleEventPoint(struct q* eventPoint){
             
-            // Union of Lp, Up and Cp
+            /// Union of Lp, Up and Cp
             vector<lineSegment> all = unionOf(eventPoint->L, unionOf(eventPoint->U, eventPoint->C));
 
             if (all.size() > 1) {
                 // p is an intersection
                 printf("Intersection: %f %f\n", eventPoint->xc, eventPoint->yc);
             }
-            // delete elements of Lp union Cp from status
+            /// delete elements of Lp union Cp from status
             vector<lineSegment> temp1 = unionOf(eventPoint->L, eventPoint->C);
             for(size_t i = 0; i < temp1.size(); i++)
             {
@@ -211,7 +212,7 @@ class FindIntersections
             // printf("after deleting:\n");
             // status.preOrder(statusRoot);
             
-            //insert segments in Up union Cp into status according to their position just below the sweep line
+            ///insert segments in Up union Cp into status according to their position just below the sweep line
             vector<lineSegment> temp2 = unionOf(eventPoint->U, eventPoint->C);
             for(size_t i = 0; i < temp2.size(); i++)
             {
@@ -220,7 +221,7 @@ class FindIntersections
             // printf("after reinserting:\n");
             // status.preOrder(statusRoot);
 
-            // check if Up union Cp is empty
+            /// check if Up union Cp is empty
             if(empty(temp2) == 1){
                 struct lineSegment sl, sr;
                 sl.startX = -1;
@@ -268,7 +269,7 @@ class FindIntersections
 
         }
 
-        // Run the algorithm to find the line intersections
+        /// Run the algorithm to find the line intersections
         void runAlgorithm(){
             while(eventQueueRoot != NULL){
                 struct q* pop = eventQueue.maxValueNode(eventQueueRoot);
@@ -284,42 +285,24 @@ class FindIntersections
 int main(){
     vector<lineSegment> segmentVector;
     lineSegment l1;
-    l1.startX = 1;
-    l1.startY = 1;
-    l1.endX = 11;
-    l1.endY = 11;
+    l1.startX = 0;
+    l1.startY = 0;
+    l1.endX = 10;
+    l1.endY = 10;
     segmentVector.push_back(l1);
     
     // lineSegment l2;
-    l1.startX = 1;
-    l1.startY = 11;
-    l1.endX = 11;
-    l1.endY = 1;
+    l1.startX = 0;
+    l1.startY = 10;
+    l1.endX = 10;
+    l1.endY = 0;
     segmentVector.push_back(l1);
-    // lineSegment l2;
-    l1.startX = 1;
-    l1.startY = 11;
-    l1.endX = 11;
-    l1.endY = 11;
-    segmentVector.push_back(l1);
-
-    l1.startX = 11;
-    l1.startY = 11;
-    l1.endX = 11;
-    l1.endY = 1;
-    segmentVector.push_back(l1);
-
-    l1.startX = 11;
-    l1.startY = 1;
-    l1.endX = 1;
-    l1.endY = 1;
-    segmentVector.push_back(l1);
-
-    l1.startX = 1;
-    l1.startY = 1;
-    l1.endX = 1;
-    l1.endY = 11;
-    segmentVector.push_back(l1);
+    // // lineSegment l2;
+    // l1.startX = 100;
+    // l1.startY = 600;
+    // l1.endX = 700;
+    // l1.endY = 400;
+    // segmentVector.push_back(l1);
     
     FindIntersections findIntersection = FindIntersections(segmentVector);
     findIntersection.runAlgorithm();

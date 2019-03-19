@@ -97,7 +97,7 @@ public:
     	y->height = max(height(y->left), height(y->right))+1;
     	return y;
     }
-    //function to find x co-ordinate of a line given the two end points and y co-ordinate
+    ///function to find x co-ordinate of a line given the two end points and y co-ordinate
     GLfloat findx (lineSegment l, GLfloat y)
     {
       return ((y-l.endY)*((l.endX-l.startX)/(l.endY-l.startY)))+l.endX;
