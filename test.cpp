@@ -285,17 +285,41 @@ class FindIntersections
 int main(){
     vector<lineSegment> segmentVector;
     lineSegment l1;
-    l1.startX = 0;
-    l1.startY = 0;
-    l1.endX = 10;
-    l1.endY = 10;
+    l1.startX = 1;
+    l1.startY = 1;
+    l1.endX = 11;
+    l1.endY = 11;
     segmentVector.push_back(l1);
     
     // lineSegment l2;
-    l1.startX = 0;
-    l1.startY = 10;
-    l1.endX = 10;
-    l1.endY = 0;
+    l1.startX = 1;
+    l1.startY = 11;
+    l1.endX = 11;
+    l1.endY = 1;
+    segmentVector.push_back(l1);
+    // lineSegment l2;
+    l1.startX = 1;
+    l1.startY = 11;
+    l1.endX = 11;
+    l1.endY = 11;
+    segmentVector.push_back(l1);
+
+    l1.startX = 11;
+    l1.startY = 11;
+    l1.endX = 11;
+    l1.endY = 1;
+    segmentVector.push_back(l1);
+
+    l1.startX = 11;
+    l1.startY = 1;
+    l1.endX = 1;
+    l1.endY = 1;
+    segmentVector.push_back(l1);
+
+    l1.startX = 1;
+    l1.startY = 1;
+    l1.endX = 1;
+    l1.endY = 11;
     segmentVector.push_back(l1);
     // // lineSegment l2;
     // l1.startX = 100;
