@@ -23,10 +23,10 @@ int main()
         newstatus.globalinsert = 0;
         printf("Enter new line segment details and y\n");
         scanf("%f%f%f%f%f",&xs,&ys,&xe,&ye,&ycor);
-        newl.sx = xs;
-        newl.sy = ys;
-        newl.ex = xe;
-        newl.ey = ye;
+        newl.startX = xs;
+        newl.startY = ys;
+        newl.endX = xe;
+        newl.endY = ye;
         root = newstatus.insert (root,newl,ycor-1);
         printf("Inserted\n");
 
@@ -35,10 +35,10 @@ int main()
     {
       printf("Enter event details to delete and y\n");
       scanf("%f%f%f%f%f",&xs,&ys,&xe,&ye,&ycor);
-      newl.sx = xs;
-      newl.sy = ys;
-      newl.ex = xe;
-      newl.ey = ye;
+      newl.startX = xs;
+      newl.startY = ys;
+      newl.endX = xe;
+      newl.endY = ye;
       root = newstatus.deleteNode(root, newl,ycor+1);
       root = newstatus.deleteNode(root, newl,ycor+1);
       printf("Deleted from status \n");
@@ -49,20 +49,20 @@ int main()
       scanf("%f %f", &px, &py);
       struct lineSegment leftl;
       struct lineSegment rightl;
-      leftl.sx = -1;
-      rightl.sx = -1;
+      leftl.startX = -1;
+      rightl.startX = -1;
 
       newstatus.getNeighbors(root, px, py-0.1, &leftl, &rightl);
-      if(leftl.sx == -1){
+      if(leftl.startX == -1){
         printf("no left line\n");
       }
       else{
-        printf("left line: %f %f %f %f\n", leftl.sx, leftl.sy, leftl.ex, leftl.ey );
+        printf("left line: %f %f %f %f\n", leftl.startX, leftl.startY, leftl.endX, leftl.endY );
       }
-      if (rightl.sx == -1) {
+      if (rightl.startX == -1) {
         printf("no right line\n");
       } else {
-        printf("right line: %f %f %f %f\n", rightl.sx, rightl.sy, rightl.ex, rightl.ey );
+        printf("right line: %f %f %f %f\n", rightl.startX, rightl.startY, rightl.endX, rightl.endY );
       }
     }
     if(control == 4)
@@ -70,26 +70,26 @@ int main()
       printf("enter line: \n");
 
       scanf("%f %f %f %f %f", &xs, &ys, &xe,&ye,&ycor);
-      struct line leftl;
-      struct line rightl;
-      leftl.sx = -1;
-      rightl.sx = -1;
-      newl.sx = xs;
-      newl.sy = ys;
-      newl.ex = xe;
-      newl.ey = ye;
+      struct lineSegment leftl;
+      struct lineSegment rightl;
+      leftl.startX = -1;
+      rightl.startX = -1;
+      newl.startX = xs;
+      newl.startY = ys;
+      newl.endX = xe;
+      newl.endY = ye;
       newstatus.getLeftNeighbor(root, newl, ycor, &leftl);
       newstatus.getRightNeighbor(root , newl, ycor, &rightl);
-      if(leftl.sx == -1){
+      if(leftl.startX == -1){
         printf("no left line\n");
       }
       else{
-        printf("left line: %f %f %f %f\n", leftl.sx, leftl.sy, leftl.ex, leftl.ey );
+        printf("left line: %f %f %f %f\n", leftl.startX, leftl.startY, leftl.endX, leftl.endY );
       }
-      if (rightl.sx == -1) {
+      if (rightl.startX == -1) {
         printf("no right line\n");
       } else {
-        printf("right line: %f %f %f %f\n", rightl.sx, rightl.sy, rightl.ex, rightl.ey );
+        printf("right line: %f %f %f %f\n", rightl.startX, rightl.startY, rightl.endX, rightl.endY );
       }
 
     }
