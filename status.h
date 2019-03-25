@@ -312,7 +312,7 @@ public:
       void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct lineSegment* lastRight, struct lineSegment* lastLeft){
         if(node->height == 1){
           if(lastRight->startX == -1){
-            if(findx(node->l,ycor-0.1) < xcor){
+            if(findx(node->l,ycor-0.1) <= xcor){
               *lastRight = node->l;
             }
           }
@@ -334,6 +334,10 @@ public:
         {
           // printf("go right");
           *lastRight = node->l;
+          if (node->right == NULL) {
+            return;
+          }
+          
           getNeighbors(node->right, xcor, ycor, lastRight, lastLeft);
         }
       }

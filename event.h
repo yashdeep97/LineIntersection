@@ -277,6 +277,11 @@ public:
   {
       struct q* current = node;
 
+      if (current == NULL) {
+        return current;
+      }
+      
+
       /* loop down to find the rightmost leaf */
       while (current->right != NULL)
           current = current->right;

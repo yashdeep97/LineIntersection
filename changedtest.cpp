@@ -161,14 +161,17 @@ class FindIntersections
             ///find intersection point of sl and sr
             struct point newEventPoint = intersectionOf(sl, sr);
             // printf("intersection point of %f %f %f %f AND %f %f %f %f: %f %f\n", sl.startX, sl.startY, sl.endX, sl.endY, sr.startX, sr.startY, sr.endX, sr.endY, newEventPoint.x, newEventPoint.y);
-
-            if(newEventPoint.y < p->yc){
-                eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
-                eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
-            } else if(newEventPoint.y == p->yc && newEventPoint.x > p->xc){
-                eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
-                eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+            if (newEventPoint.y != -1) {
+                if(newEventPoint.y < p->yc){
+                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
+                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+                } else if(newEventPoint.y == p->yc && newEventPoint.x > p->xc){
+                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
+                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+                }
             }
+            
+            
 
             
         }
@@ -208,7 +211,7 @@ class FindIntersections
 
         /// handle each event point popped from the event queue
         void handleEventPoint(struct q* eventPoint){
-            
+
             /// Union of Lp, Up and Cp
             vector<lineSegment> all = unionOf(eventPoint->L, unionOf(eventPoint->U, eventPoint->C));
 
@@ -243,9 +246,11 @@ class FindIntersections
                 sr.startX = -1;
                 // status.preOrder(statusRoot);
                 status.getNeighbors(statusRoot, eventPoint->xc, (eventPoint->yc)-0.1, &sl, &sr);
-                if(sl.startX != -1 && sr.startX != -1){
-                    findNewEvent(sl, sr, eventPoint);
-                }
+                // if(sl.startX != -1){
+                //     if (sr.startX != -1) {
+                //         findNewEvent(sl, sr, eventPoint);
+                //     }
+                // }
             } else {
                 struct lineSegment sll, srr;
                 GLfloat max = -1.0, min = 1001.0; 
@@ -287,9 +292,11 @@ class FindIntersections
         void runAlgorithm(){
             while(eventQueueRoot != NULL){
                 struct q* pop = eventQueue.maxValueNode(eventQueueRoot);
+                if (pop != NULL) {
+                   handleEventPoint(pop); 
+                   eventQueueRoot = eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
+                }
                 
-                handleEventPoint(pop);
-                eventQueueRoot = eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
             }
             printf("\nExecution complete\n");
         }
