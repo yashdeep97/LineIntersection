@@ -11,6 +11,7 @@ Insertion happens at a given Y - Co-ordinate which is 2 for this case.
 - (0,0) (2,4)
 - (0,0) (2,6)
 - (0,0) (2,8)
+
 Generating the tree:
 
 0.000000 0.000000 2.000000 6.000000 4
@@ -55,6 +56,7 @@ Let the event points be (assuming all upper end points to show the value of U st
 - (3,4)
 - (3,6)
 - (3,5)
+
 Generating the tree:
 
 2.000000 3.000000 3
