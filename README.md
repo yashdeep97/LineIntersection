@@ -12,6 +12,7 @@ Insertion happens at a given Y - Co-ordinate which is 2 for this case.
 - (0,0) (2,6)
 - (0,0) (2,8)
 Generating the tree:
+
 0.000000 0.000000 2.000000 6.000000 4
 0.000000 0.000000 0.000000 2.000000 3
 0.000000 0.000000 0.000000 2.000000 1
@@ -23,6 +24,7 @@ Generating the tree:
 0.000000 0.000000 2.000000 2.000000 1
 
 Popping the line (0,0) - (2,6) at Y = 2 yields the tree:
+
 0.000000 0.000000 2.000000 4.000000 4
 0.000000 0.000000 0.000000 2.000000 3
 0.000000 0.000000 0.000000 2.000000 1
@@ -33,12 +35,14 @@ Popping the line (0,0) - (2,6) at Y = 2 yields the tree:
 
 ## Event Queue Generation
 Let the event points be (assuming all upper end points to show the value of U stored):
+
 - (1,2)
 - (2,3)
 - (3,4)
 - (3,6)
 - (3,5)
 Generating the tree:
+
 2.000000 3.000000 3
  U:2.000000 3.000000 3.000000 4.000000
 1.000000 2.000000 1
@@ -51,6 +55,7 @@ Generating the tree:
  U:3.000000 6.000000 7.000000 4.000000
 
  Popping results:
+
 Popping event point 3.000000,6.000000
 New Tree:
 2.000000 3.000000 3
@@ -65,6 +70,7 @@ New Tree:
 ##Main algorithm
 
 For the lines:
+
 - (1,1) - (11,11)
 - (1,11) - (11,1)
 - (1,11) - (11,11)
@@ -73,6 +79,7 @@ For the lines:
 - (1,1) - (1,11)
 
 Results:
+
 Intersection: 1.000000 11.000000
 Intersection: 11.000000 11.000000
 Intersection: 6.000000 6.000000
