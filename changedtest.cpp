@@ -38,6 +38,20 @@ class FindIntersections
                     endx = segmentVector[i].startX;
                     endy = segmentVector[i].startY;
                 }
+                if (segmentVector[i].startY == segmentVector[i].endY ) {
+                    if (segmentVector[i].startX <= segmentVector[i].endX) {
+                        startx = segmentVector[i].startX;
+                        starty = segmentVector[i].startY;
+                        endx = segmentVector[i].endX;
+                        endy = segmentVector[i].endY;
+                    } else {
+                        startx = segmentVector[i].endX;
+                        starty = segmentVector[i].endY;
+                        endx = segmentVector[i].startX;
+                        endy = segmentVector[i].startY;
+                    }
+                    
+                }
                 
                 // printf("%f %f %f %f\n", startx, starty, endx, endy);             
                 
@@ -146,7 +160,7 @@ class FindIntersections
         void findNewEvent(lineSegment sl, lineSegment sr, struct q* p){
             ///find intersection point of sl and sr
             struct point newEventPoint = intersectionOf(sl, sr);
-            // printf("intersection: %f %f\n", newEventPoint.x, newEventPoint.y);
+            // printf("intersection point of %f %f %f %f AND %f %f %f %f: %f %f\n", sl.startX, sl.startY, sl.endX, sl.endY, sr.startX, sr.startY, sr.endX, sr.endY, newEventPoint.x, newEventPoint.y);
 
             if(newEventPoint.y < p->yc){
                 eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
@@ -238,11 +252,13 @@ class FindIntersections
                 for(size_t i = 0; i < temp2.size(); i++)
                 {
                     GLfloat x = status.findx(temp2[i], eventPoint->yc);
-                    if (x < min) {
+                    GLfloat minX = (temp2[i].startX < temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
+                    GLfloat maxX = (temp2[i].startX > temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
+                    if (x < min && x <= maxX && x >= minX) {
                         min = x;
                         sll = temp2[i];
                     }
-                    if(x > max){
+                    if(x > max  && x <= maxX && x >= minX){
                         
                         max = x;
                         srr = temp2[i];
@@ -256,10 +272,10 @@ class FindIntersections
                 status.getLeftNeighbor(statusRoot, sll, eventPoint->yc, &sl);
                 status.getRightNeighbor(statusRoot , srr, eventPoint->yc, &sr);
                 
-                if(sl.startX != -1){
+                if(sl.startX != -1 && min != 1001){
                     findNewEvent(sl, sll, eventPoint);
                 }
-                if(sr.startX != -1){
+                if(sr.startX != -1 && max != -1){
                     findNewEvent(srr, sr, eventPoint);
                 }
             }
