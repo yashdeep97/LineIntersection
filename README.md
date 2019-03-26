@@ -92,7 +92,7 @@ New Tree:
 3.000000 4.000000 1
  U:3.000000 4.000000 2.000000 3.000000
 
-##Main algorithm
+## Main algorithm
 
 For the lines:
 
@@ -118,3 +118,10 @@ Intersection: 11.000000 1.000000
 
 Execution complete
 Execution time in secinds: 0.191
+
+## Instructions for running the code:
++ Install glfw library for gui:
+sudo apt-get install libglfw3
+sudo apt-get install libglfw3-dev
++ run code:
+bash execute.sh
