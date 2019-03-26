@@ -12,10 +12,10 @@ using namespace std;
 //struct to represent a line segment
 struct lineSegment
 {
-    GLfloat startX;
-    GLfloat startY;
-    GLfloat endX = -1;
-    GLfloat endY = -1;
+    double startX;
+    double startY;
+    double endX = -1;
+    double endY = -1;
 };
 /**
   *main status structure from which the tree is built which contains the line as its key
@@ -98,7 +98,7 @@ public:
     	return y;
     }
     ///function to find x co-ordinate of a line given the two end points and y co-ordinate
-    GLfloat findx (lineSegment l, GLfloat y)
+    double findx (lineSegment l, double y)
     {
       return ((y-l.endY)*((l.endX-l.startX)/(l.endY-l.startY)))+l.endX;
     }
@@ -110,7 +110,7 @@ public:
     	return height(N->left) - height(N->right);
     }
     /// function to insert a new line
-    struct status* insert(struct status* node, lineSegment newl, GLfloat ycor)
+    struct status* insert(struct status* node, lineSegment newl, double ycor)
     {
       int *justinserted = &globalinsert;
 
@@ -181,7 +181,7 @@ public:
           return current;
       }
       /// function to delete a line
-      struct status* deleteNode(struct status* root, lineSegment newl, GLfloat ycor)
+      struct status* deleteNode(struct status* root, lineSegment newl, double ycor)
       {
 
           if (root == NULL)
@@ -266,7 +266,7 @@ public:
       }
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 12
-      void getLeftNeighbor(struct status* node, lineSegment l, GLfloat ycor, struct lineSegment* lastRight){
+      void getLeftNeighbor(struct status* node, lineSegment l, double ycor, struct lineSegment* lastRight){
         if(node->height == 1){
           if(lastRight->startX == -1){
             if(findx(node->l,ycor-0.1) < findx(l,ycor-0.1)){
@@ -287,7 +287,7 @@ public:
       }
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 15
-      void getRightNeighbor(struct status* node, lineSegment l, GLfloat ycor, struct lineSegment* lastLeft){
+      void getRightNeighbor(struct status* node, lineSegment l, double ycor, struct lineSegment* lastLeft){
         if(node->height == 1){
           if (lastLeft->startX == -1) {
             if(findx(node->l,ycor-0.1) > findx(l,ycor-0.1)){
@@ -309,7 +309,7 @@ public:
 
       /// Get left and right neighboring segments of a point, STEP 9
       /// lastLeft is the right neighbor and lastRight is the left neighbor for the point
-      void getNeighbors(struct status* node, GLfloat xcor, GLfloat ycor, struct lineSegment* lastRight, struct lineSegment* lastLeft){
+      void getNeighbors(struct status* node, double xcor, double ycor, struct lineSegment* lastRight, struct lineSegment* lastLeft){
         if(node->height == 1){
           if(lastRight->startX == -1){
             if(findx(node->l,ycor-0.1) <= xcor){

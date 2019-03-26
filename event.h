@@ -10,7 +10,7 @@ using namespace std;
 /// Structure to represent eent queue
 struct q
 {
-	GLfloat xc,yc;
+	double xc,yc;
 	struct q *left;
 	struct q *right;
   vector<lineSegment> U;
@@ -47,29 +47,28 @@ public:
   * 3 - interior point
   */
 
-  struct q* newq(GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye, int teller)
+  struct q* newq(double xc, double yc, double xs, double ys, double xe, double ye, int teller)
   {
     
-  	struct q* node = (struct q*)
-  						malloc(sizeof(struct q));
+  	struct q* node = (struct q*)malloc(sizeof(struct q));
     
   	node->xc = xc;
     node->yc = yc;
-    lineSegment l;
-    l.startX = xs;
-    l.startY = ys;
-    l.endX = xe;
-    l.endY = ye;
+    struct lineSegment* l = (struct lineSegment*)malloc(sizeof(struct lineSegment));
+    l->startX = xs;
+    l->startY = ys;
+    l->endX = xe;
+    l->endY = ye;
     if(teller == 1)
     {
-      node->U.push_back(l);
+      node->U.push_back(*l);
     }
     else if(teller == 2)
     {
-      node->L.push_back(l);
+      node->L.push_back(*l);
     }
     else
-    node->C.push_back(l);
+    node->C.push_back(*l);
     
   	node->left = NULL;
   	node->right = NULL;
@@ -109,7 +108,7 @@ public:
   	return y;
   }
   /// function used as a comparator for insertion and deletion
-  int mygreater(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
+  int mygreater(double x1, double y1, double x2, double y2)
   {
     if(y1<y2)
     return 0;
@@ -124,7 +123,7 @@ public:
     }
   }
   /// function used as a comparator for insertion and deletion
-  int mylesser(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2)
+  int mylesser(double x1, double y1, double x2, double y2)
   {
     if(y1<y2)
     return 1;
@@ -146,7 +145,7 @@ public:
   	return height(N->left) - height(N->right);
   }
   /// function to insert a new event point
-  struct q* insert(struct q* node, GLfloat xc, GLfloat yc, GLfloat xs, GLfloat ys, GLfloat xe, GLfloat ye,int teller)
+  struct q* insert(struct q* node, double xc, double yc, double xs, double ys, double xe, double ye,int teller)
   {
     // printf("start insert\n");
   	if (node == NULL)
@@ -186,12 +185,12 @@ public:
           }
           if(counter ==1)
           {
-            lineSegment l;
-            l.startX = xs;
-            l.startY = ys;
-            l.endX = xe;
-            l.endY = ye;
-            node->U.push_back(l);
+            struct lineSegment *l = (struct lineSegment*)malloc(sizeof(struct lineSegment));
+            l->startX = xs;
+            l->startY = ys;
+            l->endX = xe;
+            l->endY = ye;
+            node->U.push_back(*l);
           }
         }
         else if (teller == 2)
@@ -204,12 +203,12 @@ public:
           }
           if(counter ==1)
           {
-            lineSegment l;
-            l.startX = xs;
-            l.startY = ys;
-            l.endX = xe;
-            l.endY = ye;
-            node->L.push_back(l);
+            struct lineSegment *l = (struct lineSegment*)malloc(sizeof(struct lineSegment));
+            l->startX = xs;
+            l->startY = ys;
+            l->endX = xe;
+            l->endY = ye;
+            node->L.push_back(*l);
           }
         }
         else if(teller == 3)
@@ -222,12 +221,12 @@ public:
           }
           if(counter ==1)
           {
-            lineSegment l;
-            l.startX = xs;
-            l.startY = ys;
-            l.endX = xe;
-            l.endY = ye;
-            node->C.push_back(l);
+            struct lineSegment *l = (struct lineSegment*)malloc(sizeof(struct lineSegment));
+            l->startX = xs;
+            l->startY = ys;
+            l->endX = xe;
+            l->endY = ye;
+            node->C.push_back(*l);
           }
         }
         if(counter == 0)
@@ -289,7 +288,7 @@ public:
       return current;
   }
   /// function to delete the enent point that is to be popped
-  struct q* deleteNode(struct q* root, GLfloat xc, GLfloat yc)
+  struct q* deleteNode(struct q* root, double xc, double yc)
   {
 
       if (root == NULL)

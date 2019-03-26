@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "FindIntersections.h"
 
 #define SCREEN_WIDTH 1000
@@ -6,13 +7,14 @@
 
 using namespace std;
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
+// void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+void findIntersectionPoints();
 
 vector<lineSegment> segmentVector;
-vector<int> a;
+// vector<int> a;
 int main(void)
 {
     GLFWwindow* window;
@@ -76,8 +78,7 @@ int main(void)
 
     glfwTerminate();
 
-    FindIntersections findIntersection = FindIntersections(segmentVector);
-    findIntersection.runAlgorithm();
+    findIntersectionPoints();
     
     return 0;
 }
@@ -113,26 +114,35 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
     
 }
 
-// Re-adjust Viewport size when window is resized
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// cout<<height<<" "<<width<<endl;
-    glViewport(0, 0, width, height);
-} 
+// // Re-adjust Viewport size when window is resized
+// void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+// {
+// 	// cout<<height<<" "<<width<<endl;
+//     glViewport(0, 0, width, height);
+// } 
 
 void findIntersectionPoints(){
-    FindIntersections findIntersection = FindIntersections(segmentVector);
-    findIntersection.runAlgorithm();
+    ofstream myfile;
+    myfile.open ("lines.txt");
+
+    for(int i = 0; i < segmentVector.size(); i++)
+    {
+        myfile << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
+    }
+    myfile.close();
+    // FindIntersections findIntersection = FindIntersections(segmentVector);
+    // findIntersection.runAlgorithm();
+    
 }
 
 void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
         glfwSetWindowShouldClose(window, true);
-        // findIntersectionPoints();
     }
         
 
-    // if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
-        // findIntersectionPoints();
+    // if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) printf("hello");
+    //     // findIntersectionPoints();
+        
 }

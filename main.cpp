@@ -5,7 +5,7 @@ int main(){
     cout << "Enter the number of lines you want to add : ";
     int n;
     cin >> n;
-    int x1, y1, x2, y2;
+    double x1, y1, x2, y2;
     for(int i=0;i<n;i++)
     {
         cin >> x1 >> y1 >> x2 >> y2;

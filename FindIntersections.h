@@ -12,8 +12,8 @@ using namespace std;
 /// struct to represent a point
 struct point
 {
-    GLfloat x;
-    GLfloat y;
+    float x;
+    float y;
 };
 
 class FindIntersections
@@ -26,10 +26,10 @@ class FindIntersections
         struct status *statusRoot = NULL;
     public:
         /// constructor to initialise event queue and status
-        FindIntersections( vector<lineSegment> segmentVector ){
+        FindIntersections( vector<lineSegment> &segmentVector ){
             for(size_t i = 0; i < segmentVector.size(); i++)
             {   
-                GLfloat startx, starty, endx, endy;
+                float startx, starty, endx, endy;
                 if(segmentVector[i].startY >= segmentVector[i].endY){
                     startx = segmentVector[i].startX;
                     starty = segmentVector[i].startY;
@@ -84,7 +84,7 @@ class FindIntersections
         */
         int orientation(point p, point q, point r) 
         { 
-            GLfloat val = (q.y - p.y) * (r.x - q.x) - 
+            float val = (q.y - p.y) * (r.x - q.x) - 
                     (q.x - p.x) * (r.y - q.y); 
         
             if (val == 0) return 0;  // colinear 
@@ -256,12 +256,12 @@ class FindIntersections
                 // }
             } else {
                 struct lineSegment sll, srr;
-                GLfloat max = -1.0, min = 1001.0; 
+                float max = -1.0, min = 1001.0; 
                 for(size_t i = 0; i < temp2.size(); i++)
                 {
-                    GLfloat x = status.findx(temp2[i], eventPoint->yc);
-                    GLfloat minX = (temp2[i].startX < temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
-                    GLfloat maxX = (temp2[i].startX > temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
+                    float x = status.findx(temp2[i], eventPoint->yc);
+                    float minX = (temp2[i].startX < temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
+                    float maxX = (temp2[i].startX > temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
                     if (x < min && x <= maxX && x >= minX) {
                         min = x;
                         sll = temp2[i];
