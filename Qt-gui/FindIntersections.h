@@ -169,15 +169,31 @@ class FindIntersections
         void findNewEvent(lineSegment sl, lineSegment sr, struct q* p){
             ///find intersection point of sl and sr
             struct point newEventPoint = intersectionOf(sl, sr);
+            cout<<endl;
+                    cout<<"event queue test before:"<<endl;
+                    eventQueue.preOrder(eventQueueRoot);
             // printf("intersection point of %f %f %f %f AND %f %f %f %f: %f %f\n", sl.startX, sl.startY, sl.endX, sl.endY, sr.startX, sr.startY, sr.endX, sr.endY, newEventPoint.x, newEventPoint.y);
             if (newEventPoint.y != -1) {
                 if(newEventPoint.y < p->yc){
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
-                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+                   cout<<endl;
+                    cout<<"event queue test after1:"<<endl;
+                    eventQueue.preOrder(eventQueueRoot);
+                   eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+                cout<<endl;
+                    cout<<"event queue test after2:"<<endl;
+                    eventQueue.preOrder(eventQueueRoot);
                 } else if(newEventPoint.y == p->yc && newEventPoint.x > p->xc){
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
+                    cout<<endl;
+                    cout<<"event queue test after 1:"<<endl;
+                    eventQueue.preOrder(eventQueueRoot);
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
+                cout<<endl;
+                    cout<<"event queue test after 2:"<<endl;
+                    eventQueue.preOrder(eventQueueRoot);
                 }
+                
             }
 
 
@@ -224,7 +240,7 @@ class FindIntersections
             /// Union of Lp, Up and Cp
             vector<lineSegment> all = unionOf(eventPoint->L, unionOf(eventPoint->U, eventPoint->C));
             if (all.size() > 1) {
-                // p is an intersection
+                // p is an intersection************
                 // printf("Intersection: %f %f\n", eventPoint->xc, eventPoint->yc);
 
                 myfile << eventPoint->xc << " " << eventPoint->yc << endl;
@@ -235,6 +251,7 @@ class FindIntersections
             for(size_t i = 0; i < temp1.size(); i++)
             {
                 // printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
+                statusRoot = status.deleteNode(statusRoot, temp1[i], eventPoint->yc);
                 statusRoot = status.deleteNode(statusRoot, temp1[i], eventPoint->yc);
             }
             // printf("point: %f %f\n", eventPoint->xc, eventPoint->yc);
@@ -257,17 +274,17 @@ class FindIntersections
                 sr.startX = -1;
                 // status.preOrder(statusRoot);
                 status.getNeighbors(statusRoot, eventPoint->xc, (eventPoint->yc)-0.1, &sl, &sr);
-                // if(sl.startX != -1){
-                //     if (sr.startX != -1) {
-                //         findNewEvent(sl, sr, eventPoint);
-                //     }
-                // }
+                if(sl.startX != -1){
+                    if (sr.startX != -1) {
+                        findNewEvent(sl, sr, eventPoint);
+                    }
+                }
             } else {
                 struct lineSegment sll, srr;
                 float max = -1.0, min = 1001.0;
                 for(size_t i = 0; i < temp2.size(); i++)
                 {
-                    float x = status.findx(temp2[i], eventPoint->yc);
+                    float x = status.findx(temp2[i], eventPoint->yc - 0.1);
                     float minX = (temp2[i].startX < temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
                     float maxX = (temp2[i].startX > temp2[i].endX) ? temp2[i].startX : temp2[i].endX;
                     if (x < min && x <= maxX && x >= minX) {
@@ -281,7 +298,9 @@ class FindIntersections
                     }
 
                 }
-
+                cout<<"leftmost"<<sll.startX<<endl;
+                cout<<"rightmost"<<srr.startX<<endl;
+                status.preOrder(statusRoot);
                 struct lineSegment sl, sr;
                 sl.startX = -1;
                 sr.startX = -1;
@@ -289,13 +308,19 @@ class FindIntersections
                 status.getRightNeighbor(statusRoot , srr, eventPoint->yc, &sr);
 
                 if(sl.startX != -1 && min != 1001){
+                    cout<<"left neighbor"<<sl.startX<<endl;
+                    cout<<"leftmost"<<sll.startX<<endl;
                     findNewEvent(sl, sll, eventPoint);
                 }
                 if(sr.startX != -1 && max != -1){
                     findNewEvent(srr, sr, eventPoint);
                 }
             }
+            cout<<eventPoint->xc<<" "<<eventPoint->yc<<endl;
+            cout<<"status Queue:"<<endl;
+            status.preOrder(statusRoot);
 
+            
 
         }
 
@@ -306,6 +331,9 @@ class FindIntersections
                 if (pop != NULL) {
                    handleEventPoint(pop);
                    eventQueueRoot = eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
+                   cout<<endl;
+                    cout<<"event queue:";
+                    eventQueue.preOrder(eventQueueRoot);
                 }
 
             }

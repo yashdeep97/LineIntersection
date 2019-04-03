@@ -106,7 +106,7 @@ void MainWindow::on_btn_runAlgo_clicked()
         myfile << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
     }
     myfile.close();
-
+    QApplication::quit();
 }
 
 void MainWindow::on_btn_clear_clicked()

@@ -2,7 +2,7 @@ import pygame
 import math
 import time
 from decimal import Decimal
-import numpy as np
+# import numpy as np
 
 pygame.init()
 
@@ -26,34 +26,34 @@ def loop():
 	## list to store the end points of edges
 	edges = []
 	## Reading edges from file and storing in edges list
-	with open("testpoints.txt", "r") as f: 
-	    lines = f.readlines()
-	    for line in lines:
-	    	l1 = line.split(" ")
-	    	l2 = []
-		l2.append(int(Decimal(l1[0])))
-		l2.append(int(Decimal(l1[1])))
-		l2.append(int(Decimal(l1[2])))
-		l211 = l1[3][0:-1]
-		l2.append(int(Decimal(l211)))
-	        edges.append(l2)
-	        
+	with open("lines.txt", "r") as f: 
+		lines = f.readlines()
+		for line in lines:
+			l1 = line.split(" ")
+			l2 = []
+			l2.append(int(Decimal(l1[0])))
+			l2.append(int(Decimal(l1[1])))
+			l2.append(int(Decimal(l1[2])))
+			l211 = l1[3][0:-1]
+			l2.append(int(Decimal(l211)))
+			edges.append(l2)
+
 
 	## list to store the vertices to be plot
 	vertices = []
 	## Reading vertices from file
-	with open("pointsToPlot.txt", "r") as f: 
-	    lines = f.readlines()
-	    for line in lines:
-	    	l1 = line.split(" ")
-	    	l2 = []
-		l2.append(int(Decimal(l1[0])))
-		l211 = l1[1][0:-1]
-		l2.append(int(Decimal(l211)))
-	        vertices.append(l2)	
-	    
+	with open("points.txt", "r") as f: 
+		lines = f.readlines()
+		for line in lines:
+			l1 = line.split(" ")
+			l2 = []
+			l2.append(int(Decimal(l1[0])))
+			l211 = l1[1][0:-1]
+			l2.append(int(Decimal(l211)))
+			vertices.append(l2)	
+			
 
-	point_radius = 3
+	point_radius = 5
 
 	## adjusting the coordinated of vertices to fill the whole screen and scatter properly
 

@@ -2,6 +2,7 @@
 #define STATUS_H
 
 #include<stdio.h>
+#include <iostream>
 #include<stdlib.h>
 #include<vector>
 #include <GLFW/glfw3.h>
@@ -267,9 +268,11 @@ public:
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 12
       void getLeftNeighbor(struct status* node, lineSegment l, double ycor, struct lineSegment* lastRight){
+        
         if(node->height == 1){
           if(lastRight->startX == -1){
             if(findx(node->l,ycor-0.1) < findx(l,ycor-0.1)){
+              
               *lastRight = node->l;
             }
           }
@@ -277,13 +280,21 @@ public:
         }
         if ((findx(l,ycor-0.1) - 0.1) < findx(node->l,ycor-0.1))
         {
+          if (node->left == NULL) {
+            return;
+          }
           getLeftNeighbor(node->left, l, ycor, lastRight);
         }
         else if ((findx(l,ycor-0.1) - 0.1) > findx(node->l, ycor-0.1))
         {
+          if (node->right == NULL) {
+            return;
+          }
+          
           *lastRight = node->l;
           getLeftNeighbor(node->right, l, ycor, lastRight);
         }
+        return;
       }
 
       /// Get the left neighbor of a particular line segment from the status tree for STEP 15
@@ -298,11 +309,17 @@ public:
         }
         if ((findx(l,ycor-0.1) + 0.1) < findx(node->l,ycor-0.1))
         {
+          if (node->left == NULL) {
+            return;
+          }
           *lastLeft = node->l;
           getRightNeighbor(node->left, l, ycor, lastLeft);
         }
         else if ((findx(l,ycor-0.1) + 0.1) > findx(node->l, ycor-0.1))
         {
+          if (node->right == NULL) {
+            return;
+          }
           getRightNeighbor(node->right, l, ycor, lastLeft);
         }
       }

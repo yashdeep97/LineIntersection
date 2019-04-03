@@ -4,6 +4,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<vector>
+#include <iostream>
 #include <GLFW/glfw3.h>
 #include "status.h"
 using namespace std;
@@ -50,7 +51,7 @@ public:
   struct q* newq(double xc, double yc, double xs, double ys, double xe, double ye, int teller)
   {
 
-  	struct q* node = (struct q*)malloc(sizeof(struct q));
+  	struct q* node = (struct q*)calloc(1,sizeof(struct q));
 
   	node->xc = xc;
     node->yc = yc;
@@ -67,9 +68,10 @@ public:
     {
       node->L.push_back(*l);
     }
-    else
-    node->C.push_back(*l);
-
+    else if(teller == 3){
+      
+      node->C.push_back(*l);
+    }
   	node->left = NULL;
   	node->right = NULL;
   	node->height = 1;
@@ -388,6 +390,11 @@ public:
       {
         printf(" L:%f %f %f %f\n", root->L[i].startX, root->L[i].startY, root->L[i].endX, root->L[i].endY);
       }
+      for(size_t i = 0; i < root->C.size(); i++)
+      {
+        printf(" C:%f %f %f %f\n", root->C[i].startX, root->C[i].startY, root->C[i].endX, root->C[i].endY);
+      }
+      
   		preOrder(root->left);
   		preOrder(root->right);
   	}

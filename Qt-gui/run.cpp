@@ -21,11 +21,11 @@ int main(){
     }
 
     myfile.close();
-    cout << endl << endl;
-    for(int i = 0; i < segmentVector.size(); i++)
-    {
-        cout << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
-    }
+    // cout << endl << endl;
+    // for(int i = 0; i < segmentVector.size(); i++)
+    // {
+    //     cout << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
+    // }
 
   //  cout << endl << "Points of intersections are : \n";
     FindIntersections findIntersection = FindIntersections(segmentVector);
