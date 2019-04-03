@@ -49,9 +49,9 @@ public:
 
   struct q* newq(double xc, double yc, double xs, double ys, double xe, double ye, int teller)
   {
-    
+
   	struct q* node = (struct q*)malloc(sizeof(struct q));
-    
+
   	node->xc = xc;
     node->yc = yc;
     struct lineSegment* l = (struct lineSegment*)malloc(sizeof(struct lineSegment));
@@ -69,11 +69,11 @@ public:
     }
     else
     node->C.push_back(*l);
-    
+
   	node->left = NULL;
   	node->right = NULL;
   	node->height = 1;
-    
+
   	return(node);
   }
 
@@ -149,7 +149,7 @@ public:
   {
     // printf("start insert\n");
     if (node == NULL){
-         cout<<"hello"<<endl;
+         //cout<<"hello"<<endl;
   		return(newq(xc,yc,xs,ys,xe,ye,teller));
     }
 
@@ -281,7 +281,7 @@ public:
       if (current == NULL) {
         return current;
       }
-      
+
 
       /* loop down to find the rightmost leaf */
       while (current->right != NULL)
@@ -378,12 +378,12 @@ public:
   	if(root != NULL)
   	{
   		printf("%f %f %d\n",root->xc, root->yc,root->height);
-      
+
       for(size_t i = 0; i < root->U.size(); i++)
       {
         printf(" U:%f %f %f %f\n", root->U[i].startX, root->U[i].startY, root->U[i].endX, root->U[i].endY);
       }
-      
+
       for(size_t i = 0; i < root->L.size(); i++)
       {
         printf(" L:%f %f %f %f\n", root->L[i].startX, root->L[i].startY, root->L[i].endX, root->L[i].endY);

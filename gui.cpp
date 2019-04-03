@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
+// void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -43,8 +43,8 @@ int main(void)
     glMatrixMode( GL_MODELVIEW );
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    
-    // Set callback for mouse click 
+
+    // Set callback for mouse click
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     // set callback for change in cursor position
     glfwSetCursorPosCallback(window, cursor_position_callback);
@@ -55,7 +55,7 @@ int main(void)
         /* Render here */
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        
+
         // draw all the line segments
         for(size_t i = 0; i < segmentVector.size(); i++)
         {
@@ -63,7 +63,7 @@ int main(void)
                 glBegin(GL_LINES);
                 glVertex3f(segmentVector[i].startX, segmentVector[i].startY, 0);
                 glVertex3f(segmentVector[i].endX, segmentVector[i].endY, 0);
-                glEnd();   
+                glEnd();
             }
         }
 
@@ -79,7 +79,7 @@ int main(void)
     glfwTerminate();
 
     findIntersectionPoints();
-    
+
     return 0;
 }
 int lineStartFlag = 0;
@@ -89,7 +89,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
         // create line segment and add to vetor depending upon the clicks
-        // handle start and end point differently 
+        // handle start and end point differently
         ypos = (SCREEN_HEIGHT-ypos);
         if (lineStartFlag == 0) {
             struct lineSegment newLine;
@@ -102,7 +102,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             segmentVector.back().endY = ypos;
             lineStartFlag = 0;
         }
-    }     
+    }
 }
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
@@ -111,7 +111,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
         segmentVector.back().endX = xpos;
         segmentVector.back().endY = ypos;
     }
-    
+
 }
 
 // // Re-adjust Viewport size when window is resized
@@ -119,7 +119,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
 // {
 // 	// cout<<height<<" "<<width<<endl;
 //     glViewport(0, 0, width, height);
-// } 
+// }
 
 void findIntersectionPoints(){
     ofstream myfile;
@@ -132,7 +132,7 @@ void findIntersectionPoints(){
     myfile.close();
     // FindIntersections findIntersection = FindIntersections(segmentVector);
     // findIntersection.runAlgorithm();
-    
+
 }
 
 void processInput(GLFWwindow *window)
@@ -140,9 +140,9 @@ void processInput(GLFWwindow *window)
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
         glfwSetWindowShouldClose(window, true);
     }
-        
+
 
     // if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) printf("hello");
     //     // findIntersectionPoints();
-        
+
 }

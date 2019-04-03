@@ -27,7 +27,7 @@
    <widget class="QPushButton" name="btn_clear">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>120</x>
       <y>440</y>
       <width>96</width>
       <height>27</height>
@@ -35,19 +35,6 @@
     </property>
     <property name="text">
      <string>Clear</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_zoomFull">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>440</y>
-      <width>96</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Zoom Full</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_runAlgo">
@@ -70,7 +57,7 @@
      <x>0</x>
      <y>0</y>
      <width>704</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

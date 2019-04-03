@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include "FindIntersections.h"
+#include <fstream>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot->setInteraction(QCP::iRangeDrag, true);
 
     // Enable zoon on scroll
-    ui->plot->setInteraction(QCP::iRangeZoom, true);
+//    ui->plot->setInteraction(QCP::iRangeZoom, true);
 
     ui->plot->addGraph();
     ui->plot->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
@@ -78,14 +80,6 @@ void MainWindow::clickedGraph(QMouseEvent *event)
 
 }
 
-void MainWindow::on_btn_zoomFull_clicked()
-{
-    //Zoom to display all points comfortably
-    ui->plot->xAxis->setRange(*std::min_element(qv_x.begin(), qv_x.end()) - 1.0, *std::max_element(qv_x.begin(), qv_x.end()) + 1.0);
-    ui->plot->yAxis->setRange(*std::min_element(qv_y.begin(), qv_y.end()) - 1.0, *std::max_element(qv_y.begin(), qv_y.end()) + 1.0);
-    plot();
-}
-
 void MainWindow::on_btn_runAlgo_clicked()
 {
     vector<lineSegment> segmentVector;
@@ -103,10 +97,15 @@ void MainWindow::on_btn_runAlgo_clicked()
     {
         cout << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
     }
-     cout<<segmentVector.size()<<endl;
 
-    FindIntersections *findIntersection = new FindIntersections(segmentVector);
-//    findIntersection->runAlgorithm();
+    ofstream myfile;
+    myfile.open ("../Qt-gui/lines.txt");
+
+    for(int i = 0; i < segmentVector.size(); i++)
+    {
+        myfile << segmentVector[i].startX << " " << segmentVector[i].startY << " " << segmentVector[i].endX << " " << segmentVector[i].endY << endl;
+    }
+    myfile.close();
 
 }
 

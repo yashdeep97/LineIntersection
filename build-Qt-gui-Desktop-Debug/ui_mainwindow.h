@@ -30,7 +30,6 @@ public:
     QWidget *centralWidget;
     QCustomPlot *plot;
     QPushButton *btn_clear;
-    QPushButton *btn_zoomFull;
     QPushButton *btn_runAlgo;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -48,17 +47,14 @@ public:
         plot->setGeometry(QRect(20, 10, 661, 391));
         btn_clear = new QPushButton(centralWidget);
         btn_clear->setObjectName(QStringLiteral("btn_clear"));
-        btn_clear->setGeometry(QRect(80, 440, 96, 27));
-        btn_zoomFull = new QPushButton(centralWidget);
-        btn_zoomFull->setObjectName(QStringLiteral("btn_zoomFull"));
-        btn_zoomFull->setGeometry(QRect(210, 440, 96, 27));
+        btn_clear->setGeometry(QRect(120, 440, 96, 27));
         btn_runAlgo = new QPushButton(centralWidget);
         btn_runAlgo->setObjectName(QStringLiteral("btn_runAlgo"));
         btn_runAlgo->setGeometry(QRect(390, 430, 241, 41));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 704, 23));
+        menuBar->setGeometry(QRect(0, 0, 704, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -76,7 +72,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         btn_clear->setText(QApplication::translate("MainWindow", "Clear", Q_NULLPTR));
-        btn_zoomFull->setText(QApplication::translate("MainWindow", "Zoom Full", Q_NULLPTR));
         btn_runAlgo->setText(QApplication::translate("MainWindow", "Compute Line Intersections", Q_NULLPTR));
     } // retranslateUi
 
