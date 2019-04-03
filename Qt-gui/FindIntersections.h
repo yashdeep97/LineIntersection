@@ -26,6 +26,7 @@ class FindIntersections
         statustree status = statustree();
         struct status *statusRoot = NULL;
         ofstream myfile;
+        struct point previousEvent;
 
     public:
         /// constructor to initialise event queue and status
@@ -169,29 +170,29 @@ class FindIntersections
         void findNewEvent(lineSegment sl, lineSegment sr, struct q* p){
             ///find intersection point of sl and sr
             struct point newEventPoint = intersectionOf(sl, sr);
-            cout<<endl;
-                    cout<<"event queue test before:"<<endl;
-                    eventQueue.preOrder(eventQueueRoot);
+            // cout<<endl;
+            //         cout<<"event queue test before:"<<endl;
+            //         eventQueue.preOrder(eventQueueRoot);
             // printf("intersection point of %f %f %f %f AND %f %f %f %f: %f %f\n", sl.startX, sl.startY, sl.endX, sl.endY, sr.startX, sr.startY, sr.endX, sr.endY, newEventPoint.x, newEventPoint.y);
             if (newEventPoint.y != -1) {
                 if(newEventPoint.y < p->yc){
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
-                   cout<<endl;
-                    cout<<"event queue test after1:"<<endl;
-                    eventQueue.preOrder(eventQueueRoot);
+                //    cout<<endl;
+                //     cout<<"event queue test after1:"<<endl;
+                //     eventQueue.preOrder(eventQueueRoot);
                    eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
-                cout<<endl;
-                    cout<<"event queue test after2:"<<endl;
-                    eventQueue.preOrder(eventQueueRoot);
+                // cout<<endl;
+                //     cout<<"event queue test after2:"<<endl;
+                //     eventQueue.preOrder(eventQueueRoot);
                 } else if(newEventPoint.y == p->yc && newEventPoint.x > p->xc){
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sl.startX, sl.startY, sl.endX, sl.endY, 3);
-                    cout<<endl;
-                    cout<<"event queue test after 1:"<<endl;
-                    eventQueue.preOrder(eventQueueRoot);
+                    // cout<<endl;
+                    // cout<<"event queue test after 1:"<<endl;
+                    // eventQueue.preOrder(eventQueueRoot);
                     eventQueueRoot = eventQueue.insert( eventQueueRoot, newEventPoint.x, newEventPoint.y, sr.startX, sr.startY, sr.endX, sr.endY, 3);
-                cout<<endl;
-                    cout<<"event queue test after 2:"<<endl;
-                    eventQueue.preOrder(eventQueueRoot);
+                // cout<<endl;
+                //     cout<<"event queue test after 2:"<<endl;
+                //     eventQueue.preOrder(eventQueueRoot);
                 }
                 
             }
@@ -250,10 +251,17 @@ class FindIntersections
             vector<lineSegment> temp1 = unionOf(eventPoint->L, eventPoint->C);
             for(size_t i = 0; i < temp1.size(); i++)
             {
-                // printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
-                statusRoot = status.deleteNode(statusRoot, temp1[i], eventPoint->yc);
-                statusRoot = status.deleteNode(statusRoot, temp1[i], eventPoint->yc);
+                printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
+                statusRoot = status.deleteNode(statusRoot, temp1[i], previousEvent.y);
+                cout<<"status Queue:"<<endl;
+            status.preOrder(statusRoot);
+            cout<<endl;
+                statusRoot = status.deleteNode(statusRoot, temp1[i], previousEvent.y);
+                cout<<"status Queue:"<<endl;
+            status.preOrder(statusRoot);
+            cout<<endl;
             }
+            
             // printf("point: %f %f\n", eventPoint->xc, eventPoint->yc);
             // printf("after deleting:\n");
             // status.preOrder(statusRoot);
@@ -320,7 +328,8 @@ class FindIntersections
             cout<<"status Queue:"<<endl;
             status.preOrder(statusRoot);
 
-            
+            previousEvent.x = eventPoint->xc;
+            previousEvent.y = eventPoint->yc;
 
         }
 
@@ -331,9 +340,9 @@ class FindIntersections
                 if (pop != NULL) {
                    handleEventPoint(pop);
                    eventQueueRoot = eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
-                   cout<<endl;
-                    cout<<"event queue:";
-                    eventQueue.preOrder(eventQueueRoot);
+                //    cout<<endl;
+                //     cout<<"event queue:";
+                //     eventQueue.preOrder(eventQueueRoot);
                 }
 
             }
