@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DAA_assign: q Struct Reference</title>
+<title>Line Intersection Computation: q Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">DAA_assign
+   <div id="projectname">Line Intersection Computation
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
   </td>
  </tr>
@@ -69,147 +70,44 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Structure to represent eent queue.  
+<p>Structure to represent event queue.  
  <a href="structq.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="event_8h_source.html">event.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a493c9115b7b5a12d4bb9de7a632d2ea0"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#a493c9115b7b5a12d4bb9de7a632d2ea0">xc</a></td></tr>
-<tr class="separator:a493c9115b7b5a12d4bb9de7a632d2ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d42fee5e7dc8c137ff3ab7c796cb0b2"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#a7d42fee5e7dc8c137ff3ab7c796cb0b2">yc</a></td></tr>
-<tr class="separator:a7d42fee5e7dc8c137ff3ab7c796cb0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27a82efa69094858786da2152e72e351"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structq.html">q</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#a27a82efa69094858786da2152e72e351">left</a></td></tr>
+<tr class="memitem:a6a479968e9e5207adcd464ce117f0e72"><td class="memItemLeft" align="right" valign="top"><a id="a6a479968e9e5207adcd464ce117f0e72"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>xc</b></td></tr>
+<tr class="separator:a6a479968e9e5207adcd464ce117f0e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafa02285959bd460a5bafd8938eccca1"><td class="memItemLeft" align="right" valign="top"><a id="aafa02285959bd460a5bafd8938eccca1"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>yc</b></td></tr>
+<tr class="separator:aafa02285959bd460a5bafd8938eccca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a82efa69094858786da2152e72e351"><td class="memItemLeft" align="right" valign="top"><a id="a27a82efa69094858786da2152e72e351"></a>
+struct <a class="el" href="structq.html">q</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>left</b></td></tr>
 <tr class="separator:a27a82efa69094858786da2152e72e351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a146511993a779c76a52b388d265cdc33"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structq.html">q</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#a146511993a779c76a52b388d265cdc33">right</a></td></tr>
+<tr class="memitem:a146511993a779c76a52b388d265cdc33"><td class="memItemLeft" align="right" valign="top"><a id="a146511993a779c76a52b388d265cdc33"></a>
+struct <a class="el" href="structq.html">q</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>right</b></td></tr>
 <tr class="separator:a146511993a779c76a52b388d265cdc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad74c1f455b0e22a26fd31e42c37ed392"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#ad74c1f455b0e22a26fd31e42c37ed392">U</a></td></tr>
+<tr class="memitem:ad74c1f455b0e22a26fd31e42c37ed392"><td class="memItemLeft" align="right" valign="top"><a id="ad74c1f455b0e22a26fd31e42c37ed392"></a>
+vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>U</b></td></tr>
 <tr class="separator:ad74c1f455b0e22a26fd31e42c37ed392"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74a00b95888ac9bab7c2832a0f394b23"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#a74a00b95888ac9bab7c2832a0f394b23">C</a></td></tr>
+<tr class="memitem:a74a00b95888ac9bab7c2832a0f394b23"><td class="memItemLeft" align="right" valign="top"><a id="a74a00b95888ac9bab7c2832a0f394b23"></a>
+vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>C</b></td></tr>
 <tr class="separator:a74a00b95888ac9bab7c2832a0f394b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe386351b3fdfe25a36a9fee149dfacf"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#afe386351b3fdfe25a36a9fee149dfacf">L</a></td></tr>
+<tr class="memitem:afe386351b3fdfe25a36a9fee149dfacf"><td class="memItemLeft" align="right" valign="top"><a id="afe386351b3fdfe25a36a9fee149dfacf"></a>
+vector&lt; <a class="el" href="structlineSegment.html">lineSegment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>L</b></td></tr>
 <tr class="separator:afe386351b3fdfe25a36a9fee149dfacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0d5da8ac1468792673c42f305fcc1f2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structq.html#ad0d5da8ac1468792673c42f305fcc1f2">height</a></td></tr>
+<tr class="memitem:ad0d5da8ac1468792673c42f305fcc1f2"><td class="memItemLeft" align="right" valign="top"><a id="ad0d5da8ac1468792673c42f305fcc1f2"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b></td></tr>
 <tr class="separator:ad0d5da8ac1468792673c42f305fcc1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure to represent eent queue. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a74a00b95888ac9bab7c2832a0f394b23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74a00b95888ac9bab7c2832a0f394b23">&#9670;&nbsp;</a></span>C</h2>
+<div class="textblock"><p>Structure to represent event queue. </p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="structlineSegment.html">lineSegment</a>&gt; q::C</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad0d5da8ac1468792673c42f305fcc1f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0d5da8ac1468792673c42f305fcc1f2">&#9670;&nbsp;</a></span>height</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int q::height</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afe386351b3fdfe25a36a9fee149dfacf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe386351b3fdfe25a36a9fee149dfacf">&#9670;&nbsp;</a></span>L</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="structlineSegment.html">lineSegment</a>&gt; q::L</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a27a82efa69094858786da2152e72e351"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27a82efa69094858786da2152e72e351">&#9670;&nbsp;</a></span>left</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structq.html">q</a>* q::left</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a146511993a779c76a52b388d265cdc33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a146511993a779c76a52b388d265cdc33">&#9670;&nbsp;</a></span>right</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structq.html">q</a>* q::right</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad74c1f455b0e22a26fd31e42c37ed392"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad74c1f455b0e22a26fd31e42c37ed392">&#9670;&nbsp;</a></span>U</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="structlineSegment.html">lineSegment</a>&gt; q::U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a493c9115b7b5a12d4bb9de7a632d2ea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a493c9115b7b5a12d4bb9de7a632d2ea0">&#9670;&nbsp;</a></span>xc</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLfloat q::xc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7d42fee5e7dc8c137ff3ab7c796cb0b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d42fee5e7dc8c137ff3ab7c796cb0b2">&#9670;&nbsp;</a></span>yc</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLfloat q::yc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Documents/DAA_assign/<a class="el" href="event_8h_source.html">event.h</a></li>
+<p class="definition">Definition at line <a class="el" href="event_8h_source.html#l00011">11</a> of file <a class="el" href="event_8h_source.html">event.h</a>.</p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="event_8h_source.html">event.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

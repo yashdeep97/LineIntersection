@@ -7,7 +7,7 @@
 #include <GLFW/glfw3.h>
 #include "status.h"
 using namespace std;
-/// Structure to represent eent queue
+/// Structure to represent event queue
 struct q
 {
 	double xc,yc;

@@ -9,7 +9,7 @@ using namespace std;
 /**
   * structure that stores a line segment in terms of start and end point
 */
-//struct to represent a line segment
+///struct to represent a line segment
 struct lineSegment
 {
     double startX;
