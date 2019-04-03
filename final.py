@@ -1,13 +1,14 @@
 import pygame
 import math
 import time
+from decimal import Decimal
 import numpy as np
 
 pygame.init()
 
 ## setting size of display window
-display_width = 200
-display_height = 150
+display_width = 700
+display_height = 500
 
 ## Defining colors to be used in the display
 black = (0,0,0)
@@ -30,12 +31,11 @@ def loop():
 	    for line in lines:
 	    	l1 = line.split(" ")
 	    	l2 = []
-		l2.append(int(l1[0]))
-		l2.append(int(l1[1]))
-		l2.append(int(l1[2]))
-		l2.append(int(l1[3]))
-		l211 = l1[4][0:-1]
-		l2.append(int(l211))
+		l2.append(int(Decimal(l1[0])))
+		l2.append(int(Decimal(l1[1])))
+		l2.append(int(Decimal(l1[2])))
+		l211 = l1[3][0:-1]
+		l2.append(int(Decimal(l211)))
 	        edges.append(l2)
 	        
 
@@ -47,9 +47,9 @@ def loop():
 	    for line in lines:
 	    	l1 = line.split(" ")
 	    	l2 = []
-		l2.append(int(l1[0]))
+		l2.append(int(Decimal(l1[0])))
 		l211 = l1[1][0:-1]
-		l2.append(int(l211))
+		l2.append(int(Decimal(l211)))
 	        vertices.append(l2)	
 	    
 
@@ -60,18 +60,18 @@ def loop():
 	gDisplay.fill(white)
 	
 	for edge in edges :
-		edge[0] += 50
-		edge[2] += 50
-		edge[1] = 150 - edge[1]
-		edge[3] = 150 - edge[3]
+		edge[0] = edge[0]*6 + 50
+		edge[2] = edge[2]*6 + 50
+		edge[1] = 450 - edge[1]*4
+		edge[3] = 450 - edge[3]*4
 		pygame.draw.circle(gDisplay, blue, [edge[0], edge[1]], point_radius)
 		pygame.draw.circle(gDisplay, blue, [edge[2], edge[3]], point_radius)
 		pygame.draw.line(gDisplay, black, [edge[0], edge[1]], [edge[2], edge[3]], 2)
 	pygame.display.update()
 
 	for point in vertices :
-		point[0] += 50
-		points[1] = 150 - points[1]
+		point[0] = point[0]*6 + 50
+		point[1] = 450 - point[1]*4
 		pygame.draw.circle(gDisplay, red, point, point_radius)
 
 	pygame.display.update()
