@@ -12,8 +12,8 @@ using namespace std;
 /// struct to represent a point
 struct point
 {
-    float x;
-    float y;
+    double x;
+    double y;
 };
 
 class FindIntersections
