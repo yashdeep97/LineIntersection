@@ -344,6 +344,9 @@ public:
         if (xcor < findx(node->l,ycor-0.1))
         {
           // printf("go left");
+          if (node->left == NULL) {
+            return;
+          }
           *lastLeft = node->l;
           getNeighbors(node->left, xcor, ycor, lastRight, lastLeft);
         }

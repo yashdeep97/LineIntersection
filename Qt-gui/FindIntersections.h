@@ -247,19 +247,20 @@ class FindIntersections
                 myfile << eventPoint->xc << " " << eventPoint->yc << endl;
 
             }
+            
             /// delete elements of Lp union Cp from status
             vector<lineSegment> temp1 = unionOf(eventPoint->L, eventPoint->C);
             for(size_t i = 0; i < temp1.size(); i++)
             {
-                printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
+                // printf("delete line: %f %f %f %f\n",temp1[i].startX,temp1[i].startY, temp1[i].endX, temp1[i].endY);
                 statusRoot = status.deleteNode(statusRoot, temp1[i], previousEvent.y);
-                cout<<"status Queue:"<<endl;
-            status.preOrder(statusRoot);
-            cout<<endl;
+            //     cout<<"status Queue:"<<endl;
+            // status.preOrder(statusRoot);
+            // cout<<endl;
                 statusRoot = status.deleteNode(statusRoot, temp1[i], previousEvent.y);
-                cout<<"status Queue:"<<endl;
-            status.preOrder(statusRoot);
-            cout<<endl;
+            //     cout<<"status Queue:"<<endl;
+            // status.preOrder(statusRoot);
+            // cout<<endl;
             }
             
             // printf("point: %f %f\n", eventPoint->xc, eventPoint->yc);
@@ -281,7 +282,10 @@ class FindIntersections
                 sl.startX = -1;
                 sr.startX = -1;
                 // status.preOrder(statusRoot);
-                status.getNeighbors(statusRoot, eventPoint->xc, (eventPoint->yc)-0.1, &sl, &sr);
+                if (statusRoot != NULL) {
+                    status.getNeighbors(statusRoot, eventPoint->xc, (eventPoint->yc)-0.1, &sl, &sr);
+                }
+                
                 if(sl.startX != -1){
                     if (sr.startX != -1) {
                         findNewEvent(sl, sr, eventPoint);
@@ -306,9 +310,9 @@ class FindIntersections
                     }
 
                 }
-                cout<<"leftmost"<<sll.startX<<endl;
-                cout<<"rightmost"<<srr.startX<<endl;
-                status.preOrder(statusRoot);
+                // cout<<"leftmost"<<sll.startX<<endl;
+                // cout<<"rightmost"<<srr.startX<<endl;
+                // status.preOrder(statusRoot);
                 struct lineSegment sl, sr;
                 sl.startX = -1;
                 sr.startX = -1;
@@ -316,8 +320,8 @@ class FindIntersections
                 status.getRightNeighbor(statusRoot , srr, eventPoint->yc, &sr);
 
                 if(sl.startX != -1 && min != 1001){
-                    cout<<"left neighbor"<<sl.startX<<endl;
-                    cout<<"leftmost"<<sll.startX<<endl;
+                    // cout<<"left neighbor"<<sl.startX<<endl;
+                    // cout<<"leftmost"<<sll.startX<<endl;
                     findNewEvent(sl, sll, eventPoint);
                 }
                 if(sr.startX != -1 && max != -1){
@@ -325,8 +329,8 @@ class FindIntersections
                 }
             }
             cout<<eventPoint->xc<<" "<<eventPoint->yc<<endl;
-            cout<<"status Queue:"<<endl;
-            status.preOrder(statusRoot);
+            // cout<<"status Queue:"<<endl;
+            // status.preOrder(statusRoot);
 
             previousEvent.x = eventPoint->xc;
             previousEvent.y = eventPoint->yc;
@@ -340,6 +344,7 @@ class FindIntersections
                 if (pop != NULL) {
                    handleEventPoint(pop);
                    eventQueueRoot = eventQueue.deleteNode(eventQueueRoot, pop->xc, pop-> yc);
+                   
                 //    cout<<endl;
                 //     cout<<"event queue:";
                 //     eventQueue.preOrder(eventQueueRoot);
