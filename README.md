@@ -2,9 +2,40 @@
 Computational Geometry Assignment 1
 
 # Results
-We have given an implementation of the Bentley-Ottmann plane sweep algorithm for line segment intersection. The implementation is complete and reliable in the sense that it will work for all input instances.
+We have given an implementation of the Bentley-Ottmann plane sweep algorithm for line segment intersection.<br>
+We randomly generated lines by randomly generating their end points and the ran the algorithm on the lines to find the intersection points.
 
-## Status Tree Generation
+
+| Number of Lines | Run Time - Total CPU time(s) |
+|:-----:|:-----:|
+| 2 | ~0.005 |
+| 10 | ~0.005 |
+| 50 | 0.011 |
+| 100 | 0.023 |
+| 500 | 0.110 |
+| 1,000 | 0.180 |
+| 5,000 | 2.500 |
+| 10,000 | 13.400 |
+| 20,000 | 61.170 |
+
+The complexity of the Bentley-Ottmann algorithm is given as **O(nlogn + Ilogn)** <br>
+where n is the number of line segments and I is the number of intersection points.<br>
+The run time observed does not indicate how much the complexity is for each input size, <br>
+but instead we can observe the trend of how the time takes rows as a function of the imput size.<br>
+The actual time also depends upon the memory allocation and allotment for vector and tree data<br> structures. 
+
+<br>
+## Input
+![Input Image](linesInput.png "Input through Qt GUI")
+
+<br>
+## Output
+![Output Image](linesOutput.png "Output displyed using matplotlib")
+
+<br>
+<br>
+## An example of the line intersection computation:
+### Status Tree Generation
 Insertion happens at a given Y - Co-ordinate which is 2 for this case.
 - (0,0) (0,2)
 - (0,0) (2,2)
@@ -48,7 +79,7 @@ Popping the line (0,0) - (2,6) at Y = 2 yields the tree:
 
 0.000000 0.000000 2.000000 4.000000 1
 
-## Event Queue Generation
+### Event Queue Generation
 Let the event points be (assuming all upper end points to show the value of U stored):
 
 - (1,2)
@@ -92,7 +123,7 @@ New Tree:
 3.000000 4.000000 1
  U:3.000000 4.000000 2.000000 3.000000
 
-## Main algorithm
+### Main algorithm
 
 For the lines:
 
@@ -120,8 +151,8 @@ Execution complete
 Execution time in secinds: 0.191
 
 ## Instructions for running the code:
-+ Install glfw library for gui:
-sudo apt-get install libglfw3
-sudo apt-get install libglfw3-dev
++ Install Qt5 for gui:
++ Install matplotlib for displaying results:
++ compile run.cpp
 + run code:
 bash execute.sh

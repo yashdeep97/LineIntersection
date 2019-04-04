@@ -328,7 +328,7 @@ class FindIntersections
                     findNewEvent(srr, sr, eventPoint);
                 }
             }
-            cout<<eventPoint->xc<<" "<<eventPoint->yc<<endl;
+            // cout<<eventPoint->xc<<" "<<eventPoint->yc<<endl;
             // cout<<"status Queue:"<<endl;
             // status.preOrder(statusRoot);
 

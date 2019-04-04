@@ -69,9 +69,53 @@ $(function() {
 <div class="textblock"><p>Computational Geometry Assignment 1</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Results</h1>
-<p>We have given an implementation of the Bentley-Ottmann plane sweep algorithm for line segment intersection. The implementation is complete and reliable in the sense that it will work for all input instances.</p>
+<p>We have given an implementation of the Bentley-Ottmann plane sweep algorithm for line segment intersection.<br  />
+ We randomly generated lines by randomly generating their end points and the ran the algorithm on the lines to find the intersection points.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Number of Lines  </th><th class="markdownTableHeadCenter">Run Time - Total CPU time(s)   </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">~0.005   </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">10  </td><td class="markdownTableBodyCenter">~0.005   </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">50  </td><td class="markdownTableBodyCenter">0.011   </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">100  </td><td class="markdownTableBodyCenter">0.023   </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">500  </td><td class="markdownTableBodyCenter">0.110   </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">1,000  </td><td class="markdownTableBodyCenter">0.180   </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5,000  </td><td class="markdownTableBodyCenter">2.500   </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">10,000  </td><td class="markdownTableBodyCenter">13.400   </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">20,000  </td><td class="markdownTableBodyCenter">61.170   </td></tr>
+</table>
+<p>The complexity of the Bentley-Ottmann algorithm is given as <b>O(nlogn + Ilogn)</b> <br  />
+ where n is the number of line segments and I is the number of intersection points.<br  />
+ The run time observed does not indicate how much the complexity is for each input size, <br  />
+ but instead we can observe the trend of how the time takes rows as a function of the imput size.<br  />
+ The actual time also depends upon the memory allocation and allotment for vector and tree data<br  />
+ structures.</p>
+<p><br  />
+ </p>
 <h2><a class="anchor" id="autotoc_md2"></a>
-Status Tree Generation</h2>
+Input</h2>
+<p><img src="linesInput.png" alt="Input Image" title="Input through Qt GUI" class="inline"/></p>
+<p><br  />
+ </p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Output</h2>
+<p><img src="linesOutput.png" alt="Output Image" title="Output displyed using matplotlib" class="inline"/></p>
+<p><br  />
+ <br  />
+ </p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+An example of the line intersection computation:</h2>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Status Tree Generation</h3>
 <p>Insertion happens at a given Y - Co-ordinate which is 2 for this case.</p><ul>
 <li>(0,0) (0,2)</li>
 <li>(0,0) (2,2)</li>
@@ -97,8 +141,8 @@ Status Tree Generation</h2>
 <p>0.000000 0.000000 2.000000 8.000000 1</p>
 <p>0.000000 0.000000 2.000000 2.000000 2</p>
 <p>0.000000 0.000000 2.000000 4.000000 1</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Event Queue Generation</h2>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Event Queue Generation</h3>
 <p>Let the event points be (assuming all upper end points to show the value of U stored):</p>
 <ul>
 <li>(1,2)</li>
@@ -119,8 +163,8 @@ Event Queue Generation</h2>
 <p>1.000000 2.000000 1 U:1.000000 2.000000 2.000000 1.000000</p>
 <p>3.000000 5.000000 2 U:3.000000 5.000000 4.000000 3.000000</p>
 <p>3.000000 4.000000 1 U:3.000000 4.000000 2.000000 3.000000</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Main algorithm</h2>
+<h3><a class="anchor" id="autotoc_md7"></a>
+Main algorithm</h3>
 <p>For the lines:</p>
 <ul>
 <li>(1,1) - (11,11)</li>
@@ -137,10 +181,12 @@ Main algorithm</h2>
 <p>Intersection: 1.000000 1.000000</p>
 <p>Intersection: 11.000000 1.000000</p>
 <p>Execution complete Execution time in secinds: 0.191</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Instructions for running the code:</h2>
 <ul>
-<li>Install glfw library for gui: sudo apt-get install libglfw3 sudo apt-get install libglfw3-dev</li>
+<li>Install Qt5 for gui:</li>
+<li>Install matplotlib for displaying results:</li>
+<li>compile <a class="el" href="run_8cpp_source.html">run.cpp</a></li>
 <li>run code: bash execute.sh </li>
 </ul>
 </div></div><!-- PageDoc -->
